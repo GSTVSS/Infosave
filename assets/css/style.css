@@ -1,0 +1,17 @@
+html,boddy{
+    height: 100%;
+}
+.container{
+    text-align:center;
+}
+.form-container{
+    max-width: 300px;
+    padding:1rem;
+}
+.copy{
+    text-align:center;
+}
+
+label{
+    font-weight: 600;
+}
