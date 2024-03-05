@@ -11,104 +11,164 @@ $resultado = mysqli_query($conn, $consulta);
 
 <?php include_once('assets/menu.php'); ?>
 
-<?php 
+<?php
 if (isset($_SESSION['error'])) {
     echo $_SESSION['error'];
     unset($_SESSION['error']);
 }
 if (isset($_SESSION['success'])) {
-    echo $_SESSION['success'];
+                                                                                                                                                                                                                                                               echo $_SESSION['success'];
     unset($_SESSION['success']);
 }
 ?>
-<div class="p-5 bg-dark shadow row g-2 bg-secondary"></div>
-<div class="p-1 bg-secondary"></div>
-
-<div class="container-flex text-center p-3 d-flex justify-content-center bg-secondary">
-    <div class="containder-flex text-center w-50 hstack bg-secondary gap-3">
-        <input class="form-control me-2 h-40 p-4 shadow bg-body-tertiary rounded" type="search" name="pesquisa_colaborador" placeholder="Buscar" aria-label="Buscar" required="autofocus">
-        <button type="button" class="btn btn-primary btn-lg h-100 shadow rounded" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#cadColaborador">Cadastrar</button>
-    </div>
-</div>
-<div class="container-flex p-3 d-flex justify-content-center bg-secondary">
-    <div class="fw-semibold">
-        <div class="row">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4 bg-warning justify-content-between p-3">
+            <b><H4><bem-vindo>Bem-vindo!</bem-vindo!></H4></b>
+        </div>
+        <div class="col-md-6 bg-warning justify-content-between p-3">
             <div class="form-label-group">
-                <div class="table-responsive">
-                    <table class="resultado_colaborador table table-striped table-hover table-bordered table-sm aling-middle table-secondary rounded shadow">
-                        <thead>
-                            <tr class="bg-secondary text-white">
-                                <th scope="col">#</th>
-                                <th scope="col">NOME</th>
-                                <th scope="col">ESPECIALIDADES</th>
-                                <th scope="col">CONTATO</th>
-                                <th scope="col">ENDEREÇO</th>
-                                <th scope="col">SITUAÇÃO</th>
-                                <th scope="col" class="text text-center" colspan="3">AÇÕES</th>
-                            </tr>
-                        </thead>
-                        <?php
-                        while ($linha = mysqli_fetch_assoc($resultado)) {
-                            $id_colaborador = $linha['id_colaborador'];
-                            $name = ucwords(strtolower($linha['nome']));
-                            $telefone = $linha['telefone'];
-                            $responsavel = $linha['criado_por'];
-                            $situacao = $linha['situacao'];
-                            $alterado_por = $linha['alterado_por'];
 
-                            // CONVERTENDO DATA/HORA PARA PADRAO PORTUGUES-BR
-                            $ultima_alteracao = $linha['ultima_alteracao'];
-                            $ultima_alteracao = date('d/m/Y H:i:s',  strtotime($ultima_alteracao));
+                <input type="text" name="pesquisa_paciente" id="pesquisa_paciente" class="form-control" placeholder="BUSCAR" required autofocus>
 
-                            // CONVERTENDO DATA/HORA PARA PADRAO PORTUGUES-BR
-                            $data_cadastro = $linha['data_cadastro'];
-                            $data_cadastro = date('d/m/Y H:i:s',  strtotime($data_cadastro));
-
-                            // CONVERTENDO NASCIMENTO PARA PADRAO PORTUGUES-BR
-                            $nascimento = $linha['nascimento'];
-                            $nascimento = date('d/m/Y',  strtotime($nascimento));
-
-                            $rua = $linha['rua'];
-                            $bairro = $linha['bairro'];
-                            $rua = $linha['rua'];
-                            $numero = $linha['numero'];
-                            $cidade = $linha['cidade'];
-                            $uf = $linha['estado'];
-
-                            $endereco = $rua . ", " . $numero . " - " . $bairro . "-" . $cidade . "/" . $uf;
-                        ?>
-                            <tbody class="table-group-divider">
-                                <tr>
-                                    <td><?php echo $id_colaborador ?></td>
-                                    <td><?php echo $nome; ?></td>
-                                    <td><?php echo $linha['especialidade']; ?></td>
-                                    <td><?php echo $linha['telefone']; ?></td>
-                                    <td><?php echo $endereco; ?></td>
-                                    <td><?php echo $linha['situacao']; ?></td>
-                                    <td class="text text-center">
-                                        <a href="#" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#visualizarColaborador" data-whatever="<?php echo $linha['id_colaborador']; ?>" data-whateveremail="<?php echo $linha['email']; ?>" data-whatevernome="<?php echo $nome; ?>" data-whateversexo="<?php echo $linha['sexo']; ?>" data-whatevertelefone="<?php echo $linha['telefone']; ?>" data-whatevercep="<?php echo $linha['cep']; ?>" data-whatevercidade="<?php echo $linha['cidade']; ?>" data-whateverestado="<?php echo $linha['estado']; ?>" data-whateverbairro="<?php echo $linha['bairro']; ?>" data-whateverrua="<?php echo $linha['rua']; ?>" data-whatevernumero="<?php echo $linha['numero']; ?>" data-whatevernascimento="<?php echo $nascimento; ?>" data-whateveroperador="<?php echo $linha['criado_por']; ?>" data-whateversituacao="<?php echo $situacao; ?>" data-whateverdata_cadastro="<?php echo $data_cadastro; ?>" data-whateveralterado_por="<?php echo $alterado_por; ?>" data-whateverultima_alteracao="<?php echo $ultima_alteracao; ?>" data-whatevercpf="<?php echo $linha['cpf']; ?>" data-whateverrg="<?php echo $linha['rg']; ?>" data-whatevernome_mae="<?php echo $linha['nome_mae']; ?>" data-whateverorg_emissor="<?php echo $linha['org_emissor']; ?>" data-whateverdata_expedicao="<?php echo date('d/m/Y',  strtotime($linha['data_expedicao'])); ?>" data-whateverregistro="<?php echo $linha['registro']; ?>" data-whateverespecialidade="<?php echo $linha['especialidade']; ?>" data-whateverbanco="<?php echo $linha['banco']; ?>" data-whatevertipo_conta="<?php echo $linha['tipo_conta']; ?>" data-whateveragencia="<?php echo $linha['agencia']; ?>" data-whateverconta="<?php echo $linha['conta']; ?>" data-whateverpix="<?php echo $linha['pix']; ?>">
-                                            <i class="far fa-eye text text-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Visualizar"></i>
-                                        </a>
-                                    </td>
-                                    <td class="text text-center">
-                                        <a href="#" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#editarColaborador" data-whatever="<?php echo $linha['id_colaborador']; ?>" data-whateveremail="<?php echo $linha['email']; ?>" data-whatevernome="<?php echo ucwords(strtolower($linha['nome'])); ?>" data-whateversexo="<?php echo $linha['sexo']; ?>" data-whatevertelefone="<?php echo $linha['telefone']; ?>" data-whatevercep="<?php echo $linha['cep']; ?>" data-whatevercidade="<?php echo $linha['cidade']; ?>" data-whateverestado="<?php echo $linha['estado']; ?>" data-whateverbairro="<?php echo $linha['bairro']; ?>" data-whateverrua="<?php echo $linha['rua']; ?>" data-whatevernumero="<?php echo $linha['numero']; ?>" data-whatevernascimento="<?php echo $nascimento; ?>" data-whateveroperador="<?php echo $linha['criado_por']; ?>" data-whateversituacao="<?php echo $situacao; ?>" data-whateverdata_cadastro="<?php echo $data_cadastro; ?>" data-whateveralterado_por="<?php echo $alterado_por; ?>" data-whateverultima_alteracao="<?php echo $ultima_alteracao; ?>" data-whatevercpf="<?php echo $linha['cpf']; ?>" data-whateverrg="<?php echo $linha['rg']; ?>" data-whatevernome_mae="<?php echo $linha['nome_mae']; ?>" data-whateverorg_emissor="<?php echo $linha['org_emissor']; ?>" data-whateverdata_expedicao="<?php echo date('d/m/Y',  strtotime($linha['data_expedicao'])); ?>" data-whateverregistro="<?php echo $linha['registro']; ?>" data-whateverespecialidade="<?php echo $linha['especialidade']; ?>" data-whateverbanco="<?php echo $linha['banco']; ?>" data-whatevertipo_conta="<?php echo $linha['tipo_conta']; ?>" data-whateveragencia="<?php echo $linha['agencia']; ?>" data-whateverconta="<?php echo $linha['conta']; ?>" data-whateverpix="<?php echo $linha['pix']; ?>">
-                                            <i class="far fa-edit text text-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"></i>
-                                        </a>
-                                    </td>
-                                    <td class="text text-center">
-                                        <a href="processa_excluir_colaborador.php?id_colaborador=<?php echo $linha['id_colaborador']; ?>" onClick="return confirm('Deseja realmente deletar o colaborador?')">
-                                            <i class="far fa-trash-alt text text-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Excluir"></i>
-                                            <a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        <?php } ?>
-                    </table>
-                </div>
             </div>
+        </div>
+        <div class="col-md-2 bg-warning  justify-content-between p-3 d-flex">
+            <button type="button" class="btn btn-sm btn-dark " data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#cadPaciente">NOVO CADASTRO</button>
         </div>
     </div>
 </div>
+
+<table class="table table-bordered table-hover table-sm table-responsive-xl resultado_paciente">
+    <thead>
+        <tr class="bg-dark text text-white">
+
+            <th scope="col">CÓD</th>
+            <th scope="col">NOME</th>
+            <th scope="col">ESPECIALIDADE</th>
+            <th scope="col">CONTATO</th>
+            <th scope="col">ENDEREÇO</th>
+            <th scope="col">SITUAÇÃO</th>
+            <th scope="col" class="text text-center" colspan="3">AÇÕES</th>
+        </tr>
+    </thead>
+    <?php
+    while ($linha = mysqli_fetch_assoc($resultado)) {
+        $id_paciente = $linha['id_colaborador'];
+        $nome = ucwords(strtolower($linha['nome']));
+        $telefone = $linha['telefone'];
+        $responsavel = $linha['criado_por'];
+        $situacao = $linha['situacao'];
+        $alterado_por = $linha['alterado_por'];
+
+        // CONVERTENDO DATA/HORA PARA PADRAO PORTUGUES-BR
+        $ultima_alteracao = $linha['ultima_alteracao'];
+        $ultima_alteracao = date('d/m/Y H:i:s',  strtotime($ultima_alteracao));
+
+        // CONVERTENDO DATA/HORA PARA PADRAO PORTUGUES-BR
+        $data_cadastro = $linha['data_cadastro'];
+        $data_cadastro = date('d/m/Y H:i:s',  strtotime($data_cadastro));
+
+        // CONVERTENDO NASCIMENTO PARA PADRAO PORTUGUES-BR
+        $nascimento = $linha['nascimento'];
+        $nascimento = date('d/m/Y',  strtotime($nascimento));
+
+        $rua = $linha['rua'];
+        $bairro = $linha['bairro'];
+        $rua = $linha['rua'];
+        $numero = $linha['numero'];
+        $cidade = $linha['cidade'];
+        $uf = $linha['estado'];
+
+        $endereco = $rua . ", " . $numero . " - " . $bairro . "-" . $cidade . "/" . $uf;
+    ?>
+        <tbody>
+            <tr>
+                <td><?php echo $id_paciente ?></td>
+                <td><?php echo $nome; ?></td>
+                <td><?php echo $linha['especialidade']; ?></td>
+                <td><?php echo $linha['telefone']; ?></td>
+                <td><?php echo $endereco; ?></td>
+                <td><?php echo $linha['situacao']; ?></td>
+                <td class="text text-center">
+                    <a href="#" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#visualizarColaborador"
+                    data-whatever="<?php echo $linha['id_colaborador']; ?>"
+                    data-whateveremail="<?php echo $linha['email']; ?>"
+                    data-whatevernome="<?php echo $nome; ?>"
+                    data-whateversexo="<?php echo $linha['sexo']; ?>"
+                    data-whatevertelefone="<?php echo $linha['telefone']; ?>"
+                    data-whatevercep="<?php echo $linha['cep']; ?>"
+                    data-whatevercidade="<?php echo $linha['cidade']; ?>"
+                    data-whateverestado="<?php echo $linha['estado']; ?>"
+                    data-whateverbairro="<?php echo $linha['bairro']; ?>"
+                    data-whateverrua="<?php echo $linha['rua']; ?>"
+                    data-whatevernumero="<?php echo $linha['numero']; ?>"
+                    data-whatevernascimento="<?php echo $nascimento; ?>"
+                    data-whateveroperador="<?php echo $linha['criado_por']; ?>"
+                    data-whateversituacao="<?php echo $situacao; ?>"
+                    data-whateverdata_cadastro="<?php echo $data_cadastro; ?>"
+                    data-whateveralterado_por="<?php echo $alterado_por; ?>"
+                    data-whateverultima_alteracao="<?php echo $ultima_alteracao; ?>"
+                    data-whatevercpf="<?php echo $linha['cpf']; ?>"
+                    data-whateverrg="<?php echo $linha['rg']; ?>"
+                    data-whatevernome_mae="<?php echo $linha['nome_mae']; ?>"
+                    data-whateverorg_emissor="<?php echo $linha['org_emissor']; ?>"
+                    data-whateverdata_expedicao="<?php echo date('d/m/Y',  strtotime($linha['data_expedicao'])); ?>"
+                    data-whateverregistro="<?php echo $linha['registro']; ?>"
+                    data-whateverespecialidade="<?php echo $linha['especialidade']; ?>"
+                    data-whateverbanco="<?php echo $linha['banco']; ?>"
+                    data-whatevertipo_conta="<?php echo $linha['tipo_conta']; ?>"
+                    data-whateveragencia="<?php echo $linha['agencia']; ?>"
+                    data-whateverconta="<?php echo $linha['conta']; ?>"
+                    data-whateverpix="<?php echo $linha['pix']; ?>">
+
+                        <i class="far fa-eye text text-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Visualizar"></i>
+                    </a>
+                </td>
+
+                <td class="text text-center">
+                    <a href="#" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#editarPaciente"
+                    data-whatever="<?php echo $linha['id_colaborador']; ?>"
+                    data-whateveremail="<?php echo $linha['email']; ?>"
+                    data-whatevernome="<?php echo ucwords(strtolower($linha['nome'])); ?>"
+                    data-whateversexo="<?php echo $linha['sexo']; ?>"
+                    data-whatevertelefone="<?php echo $linha['telefone']; ?>"
+                    data-whatevercep="<?php echo $linha['cep']; ?>"
+                    data-whatevercidade="<?php echo $linha['cidade']; ?>"
+                    data-whateverestado="<?php echo $linha['estado']; ?>"
+                    data-whateverbairro="<?php echo $linha['bairro']; ?>"
+                    data-whateverrua="<?php echo $linha['rua']; ?>"
+                    data-whatevernumero="<?php echo $linha['numero']; ?>"
+                    data-whatevernascimento="<?php echo $nascimento; ?>"
+                    data-whateveroperador="<?php echo $linha['criado_por']; ?>"
+                    data-whateversituacao="<?php echo $situacao; ?>"
+                    data-whateverdata_cadastro="<?php echo $data_cadastro; ?>"
+                    data-whateveralterado_por="<?php echo $alterado_por; ?>"
+                    data-whateverultima_alteracao="<?php echo $ultima_alteracao; ?>"
+                    data-whatevercpf="<?php echo $linha['cpf']; ?>"
+                    data-whateverrg="<?php echo $linha['rg']; ?>"
+                    data-whatevernome_mae="<?php echo $linha['nome_mae']; ?>"
+                    data-whateverorg_emissor="<?php echo $linha['org_emissor']; ?>"
+                    data-whateverdata_expedicao="<?php echo date('d/m/Y',  strtotime($linha['data_expedicao'])); ?>"
+                    data-whateverregistro="<?php echo $linha['registro']; ?>"
+                    data-whateverespecialidade="<?php echo $linha['especialidade']; ?>"
+                    data-whateverbanco="<?php echo $linha['banco']; ?>"
+                    data-whatevertipo_conta="<?php echo $linha['tipo_conta']; ?>"
+                    data-whateveragencia="<?php echo $linha['agencia']; ?>"
+                    data-whateverconta="<?php echo $linha['conta']; ?>"
+                    data-whateverpix="<?php echo $linha['pix']; ?>">
+
+                        <i class="far fa-edit text text-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"></i></a>
+                </td>
+                <td class="text text-center">
+                    <a href="processa_excluir_colaborador.php?id_colaborador=<?php echo $linha['id_colaborador']; ?>" onClick="return confirm('Deseja realmente deletar o colaborador?')">
+                        <i class="far fa-trash-alt text text-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Excluir"></i></a>
+                </td>
+
+            </tr>
+        </tbody>
+    <?php } ?>
+</table>
 
 <!-- ================================== MODAL CADASTRAR CLIENTE----------------------------------------------------------------->
 <style>
@@ -172,7 +232,7 @@ if (isset($_SESSION['success'])) {
         $("#nascimento").mask("99/99/9999");
     });
 
-    //FUNÇÃO PARA ADICIONAR ENDEREÇO VIA CEP (https://viacep.com.br/exemplo/javascript/)
+    // FUNÇÃO PARA ADICONAR ENDEREÇO VIA CEP (https://viacep.com.br/exemplo/javascript/)
     function limpa_formulário_cep() {
         //Limpa valores do formulário de cep.
         document.getElementById('rua').value = ("");
@@ -197,44 +257,44 @@ if (isset($_SESSION['success'])) {
     }
 
     function pesquisacep(valor) {
-        //Nova variável "cep" somente com dígitos.
-        var cep = valor.replace(/\D/g, '');
-        console.log("procurando cep");
-        //Verifica se campo cep possui valor informado.
-        if (cep != "") {
+            //Nova variável "cep" somente com dígitos.
+            var cep = valor.replace(/\D/g, '');
+            console.log("procurando cep");
+            //Verifica se campo cep possui valor informado.
+            if (cep != "") {
 
-            //Expressão regular para validar o CEP.
-            var validacep = /^[0-9]{8}$/;
+                //Expressão regular para validar o CEP.
+                var validacep = /^[0-9]{8}$/;
 
-            //Valida o formato do CEP.
-            if (validacep.test(cep)) {
+                //Valida o formato do CEP.
+                if (validacep.test(cep)) {
 
-                //Preenche os campos com "..." enquanto consulta webservice.
-                document.getElementById('rua').value = "...";
-                document.getElementById('bairro').value = "...";
-                document.getElementById('cidade').value = "...";
-                document.getElementById('uf').value = "...";
+                    //Preenche os campos com "..." enquanto consulta webservice.
+                    document.getElementById('rua').value = "...";
+                    document.getElementById('bairro').value = "...";
+                    document.getElementById('cidade').value = "...";
+                    document.getElementById('uf').value = "...";
 
-                //Cria um elemento javascript.
-                var script = document.createElement('script');
+                    //Cria um elemento javascript.
+                    var script = document.createElement('script');
 
-                //Sincroniza com o callback.
-                script.src = 'https://viacep.com.br/ws/' + cep + '/json/?callback=meu_callback';
+                    //Sincroniza com o callback.
+                    script.src = 'https://viacep.com.br/ws/' + cep + '/json/?callback=meu_callback';
 
-                //Insere script no documento e carrega o conteúdo.
-                document.body.appendChild(script);
+                    //Insere script no documento e carrega o conteúdo.
+                    document.body.appendChild(script);
 
+                } //end if.
+                else {
+                    //cep é inválido.
+                    limpa_formulário_cep();
+                    alert("Formato de CEP inválido.");
+                }
             } //end if.
             else {
-                //cep é inválido.
+                //cep sem valor, limpa formulário.
                 limpa_formulário_cep();
-                alert("Formato de CEP inválido.");
             }
-        } //end if.
-        else {
-            //cep sem valor, limpa formulário.
-            limpa_formulário_cep();
-        }
     };
 
 
@@ -243,7 +303,7 @@ if (isset($_SESSION['success'])) {
         $('#insert_form').on('submit', function(event) {
             event.preventDefault(); //EVITA O SUBMIT DO FORM
 
-            var nome = $('#name'); // PEGA O CAMPO CLIENTE DO FORM
+            var nome = $('#nome'); // PEGA O CAMPO CLIENTE DO FORM
             var telefone = $('#telefone_residencia'); // PEGA O CAMPO TELEFONE DO FORM
 
 
@@ -258,7 +318,7 @@ if (isset($_SESSION['success'])) {
 
             if (!nome.val().match(/[A-Za-z\d]/)) {
                 erro.removeClass('d-none'); //REMOVE A CLASSE (d-none) DO BOOTSTRAP E EXIBE O ALERTA
-                campo.html('colaborador'); // ADICIONA AO ALERTA O NOME DO CAMPO NAO PREENCHIDO
+                campo.html('paciente'); // ADICIONA AO ALERTA O NOME DO CAMPO NAO PREENCHIDO
                 nome.focus(); //COLOCA O CURSOR NO CAMPO COM ERRO
                 nome.addClass('is-invalid');
 
@@ -284,7 +344,7 @@ if (isset($_SESSION['success'])) {
                         $('#insert_form')[0].reset();
 
                         //Fechar a janela modal cadastrar
-                        $('#cadColaborador').modal('hide');
+                        $('#cadCliente').modal('hide');
                         $('#sucessModal').modal('show');
 
                         setInterval(function() {
@@ -307,17 +367,20 @@ if (isset($_SESSION['success'])) {
     });
 </script>
 
+
 <!-- Modal ALERTA DE CADASTRO COM SUCESSO-->
 <div class="modal fade" id="sucessModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel"></h5>
+
             </div>
             <div class="modal-body bg-success text text-center text-white">
                 COLABORADOR CADASTRADO COM SUCESSO!
             </div>
             <div class="modal-footer">
+
             </div>
         </div>
     </div>
@@ -339,21 +402,22 @@ if (isset($_SESSION['success'])) {
         </div>
     </div>
 </div>
-<div></div>
 <!-- ==================================================MODAL CADASTRO DE COLABORADOR ==================================== -->
-<div class="modal fade" id="cadColaborador" tabindex="-1" aria-labelledby="exempleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl text-light">
+<div class="modal fade" id="cadPaciente" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header bg-secondary">
-                <h5 class="modal-title fw-bolder" id="exempleModalLabel">Cadastrar Colaborador</h5>
+            <div class="modal-header ">
+                <h5 class="modal-title" id="exampleModalLabel">CADASTRO DE COLABORADOR</h5>
 
-                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" aria-hidden="true"></button>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+
             </div>
 
-            <div class="alert alert-danger d-none fade show m-3" role="alert">
-                <strong>ERRO!</strong> - <strong> Preencha todos os campos <span id="campo-erro"></span></strong>!
-                <span id="msg"></span>
-            </div>
+
             <!-- ALERTA PARA ERRO DE PREENCHIMENTO DE FORMULARIO -->
             <div class="alert alert-danger d-none fade show m-3" role="alert">
                 <strong>ERRO!</strong> - <strong>Preencha o campo <span id="campo-erro"></span></strong>!
@@ -386,7 +450,7 @@ if (isset($_SESSION['success'])) {
                         </div>
                         <div class="col-md-10 col-sm-12">
                             <label for="recipient-email" class="col-form-label">E-MAIL</label>
-                            <input type="email" max="15" class="form-control" name="email" id="email">
+                            <input type="email" max="15" class="form-control" name="email" id="email" >
                         </div>
                     </div>
                     <div class="row">
@@ -415,7 +479,7 @@ if (isset($_SESSION['success'])) {
                             <input type="text" class="form-control" name="nome_mae" id="nome_mae">
                         </div>
                     </div>
-                    <!-- //quadro do colaborador// -->
+                   <!-- //quadro do paciente// -->
                     <div class="row">
                         <div class="col-md-10 col-sm-12">
                             <label for="recipient-especialidade" class="col-form-label">Especialidade</label>
@@ -437,15 +501,15 @@ if (isset($_SESSION['success'])) {
                             <input type="text" class="form-control" name="registro" id="registro">
                         </div>
                     </div>
-
-                    <!--//endereço colaborador// -->
+                        
+                    <!--//endereço paciente// -->
                     <div class="row">
-                        <div class="col-md-5 col-sm-12">
+                    <div class="col-md-5 col-sm-12">
                             <label for="recipient-cep" class="col-form-label">Cep</label>
                             <input type="text" name="cep" id="cep" maxlength="50" class="form-control" onblur="pesquisacep(this.value)">
                         </div>
                         <div class="col-md-2 col-sm-12">
-                            <label for="recipient-uf" class="col-form-label">UF</label>
+                            <label for="recipient-uf" class="col-form-label">UF</label> 
                             <input type="text" name="uf" id="uf" maxlength="50" class="form-control">
                         </div>
                         <div class="col-md-5 col-sm-12">
@@ -453,19 +517,19 @@ if (isset($_SESSION['success'])) {
                             <input type="text" name="cidade" id="cidade" maxlength="50" class="form-control -10">
                         </div>
                         <div class="col-md-2 col-sm-12">
-                            <label for="recipient-bairro" class="col-form-label">Bairro</label>
+                            <label for="recipient-bairro" class="col-form-label">Bairro</label> 
                             <input type="text" name="bairro" id="bairro" maxlength="50" class="form-control">
                         </div>
                         <div class="col-md-6 col-sm-12">
-                            <label for="recipient-rua" class="col-form-label">Rua</label>
+                            <label for="recipient-rua" class="col-form-label">Rua</label> 
                             <input type="text" name="rua" id="rua" maxlength="50" class="form-control">
                         </div>
                         <div class="col-md-2 col-sm-12">
-                            <label for="recipient-numero" class="col-form-label">Nº</label>
+                            <label for="recipient-numero" class="col-form-label">Nº</label> 
                             <input type="text" name="numero" id="numero" maxlength="50" class="form-control">
                         </div>
                     </div>
-                    <!-----              DADOS BANCARIOS                 -->
+<!-----              DADOS BANCARIOS                 -->
                     <div class="row">
                         <div class="col-md-10 col-sm-12">
                             <label for="recipient-banco" class="col-form-label">Banco</label>
@@ -489,7 +553,7 @@ if (isset($_SESSION['success'])) {
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-10 col-sm-12 mb-4">
+                    <div class="col-md-10 col-sm-12 mb-4">
                             <label for="recipient-pix" class="col-form-label">PIX</label>
                             <input type="text" max="15" class="form-control" name="pix" id="pix">
                         </div>
@@ -516,12 +580,17 @@ if (isset($_SESSION['success'])) {
                             </select>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                        <button type="submit" class="btn btn-primary" id="btn-cadastrar">Salvar</button>
-                    </div>
-                </form>
+
             </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <button type="submit" class="btn btn-primary" id="btn-cadastrar">Salvar</button>
+            </div>
+
+            </form>
+
+
+        </div>
         <div class="m-2 col-md-8 col-sm-8 alert alert-primary ">
             Informe o CEP e tecle [ ENTER ] para autopreencher o endereço !
         </div>
@@ -540,11 +609,11 @@ if (isset($_SESSION['success'])) {
                 </button>
             </div>
             <div class="modal-body">
-                <form>
+                <form >
                     <div class="row">
                         <div class="col-md-6 col-sm-12">
                             <label for="recipient-name" class="col-form-label">Nome</label>
-                            <input disabled type="text" class="form-control" name="nome" id="recipient-nome">
+                            <input disabled type="text" class="form-control" name="nome" id="recipient-nome" >
                         </div>
                         <div class="col-md-6 col-sm-12">
                             <label for="recipient-sexo" class="col-form-label">Sexo</label>
@@ -561,7 +630,7 @@ if (isset($_SESSION['success'])) {
                         </div>
                         <div class="col-md-10 col-sm-12">
                             <label for="recipient-email" class="col-form-label">E-MAIL</label>
-                            <input disabled type="email" max="15" class="form-control" name="email" id="recipient-email">
+                            <input disabled type="email" max="15" class="form-control" name="email" id="recipient-email" >
                         </div>
                     </div>
                     <div class="row">
@@ -590,7 +659,7 @@ if (isset($_SESSION['success'])) {
                             <input disabled type="text" class="form-control" name="nome_mae" id="recipient-nome_mae">
                         </div>
                     </div>
-                    <!-- //quadro do colaborador// -->
+                    <!-- //quadro do paciente// -->
                     <div class="row">
                         <div class="col-md-10 col-sm-12">
                             <label for="recipient-especialidade" class="col-form-label">Especialidade</label>
@@ -602,15 +671,15 @@ if (isset($_SESSION['success'])) {
                             <input disabled type="text" class="form-control" name="registro" id="recipient-registro">
                         </div>
                     </div>
-
-                    <!--//endereço colaborador// -->
+                        
+                    <!--//endereço paciente// -->
                     <div class="row">
-                        <div class="col-md-5 col-sm-12">
+                    <div class="col-md-5 col-sm-12">
                             <label for="recipient-cep" class="col-form-label">Cep</label>
                             <input disabled type="text" name="cep" id="recipient-cep" maxlength="50" class="form-control" onblur="pesquisacep(this.value)">
                         </div>
                         <div class="col-md-2 col-sm-12">
-                            <label for="recipient-uf" class="col-form-label">UF</label>
+                            <label for="recipient-uf" class="col-form-label">UF</label> 
                             <input disabled type="text" name="uf" id="recipient-uf" maxlength="50" class="form-control">
                         </div>
                         <div class="col-md-5 col-sm-12">
@@ -618,15 +687,15 @@ if (isset($_SESSION['success'])) {
                             <input disabled type="text" name="cidade" id="recipient-cidade" maxlength="50" class="form-control -10">
                         </div>
                         <div class="col-md-2 col-sm-12">
-                            <label for="recipient-bairro" class="col-form-label">Bairro</label>
+                            <label for="recipient-bairro" class="col-form-label">Bairro</label> 
                             <input disabled type="text" name="bairro" id="recipient-bairro" maxlength="50" class="form-control">
                         </div>
                         <div class="col-md-6 col-sm-12">
-                            <label for="recipient-rua" class="col-form-label">Rua</label>
+                            <label for="recipient-rua" class="col-form-label">Rua</label> 
                             <input disabled type="text" name="rua" id="recipient-rua" maxlength="50" class="form-control">
                         </div>
                         <div class="col-md-2 col-sm-12">
-                            <label for="recipient-numero" class="col-form-label">Nº</label>
+                            <label for="recipient-numero" class="col-form-label">Nº</label> 
                             <input disabled type="text" name="numero" id="recipient-numero" maxlength="50" class="form-control">
                         </div>
                     </div>
@@ -651,7 +720,7 @@ if (isset($_SESSION['success'])) {
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-10 col-sm-12 mb-4">
+                    <div class="col-md-10 col-sm-12 mb-4">
                             <label for="recipient-pix" class="col-form-label">PIX</label>
                             <input disabled type="text" max="15" class="form-control" name="pix" id="recipient-pix">
                         </div>
@@ -661,7 +730,7 @@ if (isset($_SESSION['success'])) {
                     <div class="row">
                         <div class="col-md-4 col-sm-12">
                             <label for="recipient-criado_por" class="col-form-label cli">Operador</label>
-                            <input disabled type="text" name="criado_por" id="recipient-criado_por" maxlength="50" class="form-control">
+                            <input disabled type="text" name="criado_por" id="recipient-criado_por" maxlength="50" class="form-control" >
                         </div>
                         <div class="col-md-4 col-sm-12">
                             <label for="recipient-data_cadastro" class="col-form-label">Data do cadastro</label>
@@ -674,12 +743,12 @@ if (isset($_SESSION['success'])) {
                         </div>
                     </div>
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-            </div>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    </div>
 
-            </form>
+                    </form>
 
 
         </div>
@@ -764,7 +833,7 @@ if (isset($_SESSION['success'])) {
 </script>
 
 <!-- -----------------------------------MODAL EDITAR CLIENTE----------------------------------------------------------------->
-<div class="modal fade" id="editarColaborador" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="editarCliente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -774,7 +843,7 @@ if (isset($_SESSION['success'])) {
                 </button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="processa_edit_colaborador.php" enctype="multipart/form-data">
+                <form method="POST" action="processa_edit_clientes.php" enctype="multipart/form-data">
 
                     <div class="row">
                         <div class="col-md-6 col-sm-12">
@@ -900,7 +969,7 @@ if (isset($_SESSION['success'])) {
 </div>
 <!-- -----------------------------------SCRIPT MODAL EDITAR CLIENTE----------------------------------------------------------------->
 <script type="text/javascript">
-    $('#editarColaborador').on('show.bs.modal', function(event) {
+    $('#editarCliente').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget) // Botão que acionou o modal
         var recipient = button.data('whatever')
         var recipientnome = button.data('whatevernome')
@@ -956,21 +1025,21 @@ if (isset($_SESSION['success'])) {
     $(document).ready(function() {
         $(function() {
             //Pesquisar os cursos sem refresh na página
-            $("#pesquisa_colaborador").keyup(function() {
+            $("#pesquisa_cliente").keyup(function() {
 
-                var pesquisa_colaborador = $(this).val();
+                var pesquisa_cliente = $(this).val();
 
                 //Verificar se há algo digitado
-                if (pesquisa_colaborador != '') {
+                if (pesquisa_cliente != '') {
                     var dados = {
-                        palavra: pesquisa_colaborador
+                        palavra: pesquisa_cliente
                     }
-                    $.post('busca_colaboradors.php', dados, function(retorna) {
+                    $.post('busca_clientes.php', dados, function(retorna) {
                         //Mostra dentro da ul os resultado obtidos
-                        $(".resultado_colaborador").html(retorna);
+                        $(".resultado_cliente").html(retorna);
                     });
                 } else {
-                    $(".resultado_colaborador").html('');
+                    $(".resultado_cliente").html('');
                 }
             });
         });

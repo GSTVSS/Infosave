@@ -21,7 +21,7 @@ if ((isset($_POST['usuario'])) && (isset($_POST['senha']))) {
         $_SESSION['usuarioLogin'] = $resultado['usuario'];
         $_SESSION['usuarioSenha'] = $resultado['senha'];
 
-        header("Location: index.php");
+        header("Location: listar_pacientes.php");
 
     } else if ($resultado) {
 
@@ -36,7 +36,7 @@ if ((isset($_POST['usuario'])) && (isset($_POST['senha']))) {
         $inserir_token = ("UPDATE usuarios SET token='$token' WHERE usuario = '$usuario' && senha = '$senha'");
         $resultado_token = mysqli_query($conn, $inserir_token);
 
-        header("Location: index.php");
+        header("Location: listar_pacientes.php");
 
     } else {
         

@@ -7,10 +7,13 @@ include_once("config/seguranca.php");
 seguranca_adm();
 $consulta = "SELECT * FROM relatorios ";
 $resultado = mysqli_query($conn, $consulta);
+
 $consulta = "SELECT id_paciente, nome FROM pacientes ";
 $clientes = mysqli_query($conn, $consulta);
 ?>
+
 <?php include_once('assets/menu.php'); ?>
+
 <?php
 if (isset($_SESSION['error'])) {
     echo $_SESSION['error'];
@@ -24,13 +27,13 @@ if (isset($_SESSION['success'])) {
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-4 bg-warning justify-content-between p-3">
-            <b>
-                <H4>RELATORIOS</H4>
-            </b>
+            <b><H4>RELATORIOS</H4></b>
         </div>
         <div class="col-md-6 bg-warning justify-content-between p-3">
             <div class="form-label-group">
+
                 <input type="text" name="pesquisa_cliente" id="pesquisa_cliente" class="form-control" placeholder="BUSCAR" required autofocus>
+
             </div>
         </div>
         <div class="col-md-2 bg-warning  justify-content-between p-3 d-flex">
@@ -38,9 +41,11 @@ if (isset($_SESSION['success'])) {
         </div>
     </div>
 </div>
+
 <table class="table table-bordered table-hover table-sm table-responsive-xl resultado_cliente">
     <thead>
         <tr class="bg-dark text text-white">
+
             <th scope="col">CÓD</th>
             <th scope="col">PACIENTE</th>
             <th scope="col">DESCRIÇÃO</th>
@@ -49,14 +54,18 @@ if (isset($_SESSION['success'])) {
             <th scope="col" class="text text-center" colspan="3">AÇÕES</th>
         </tr>
     </thead>
-    <?php while ($linha = mysqli_fetch_assoc($resultado)) {
+    <?php
+    while ($linha = mysqli_fetch_assoc($resultado)) {
         $id_relatorio = $linha['id'];
         $nome = ucwords(strtolower($linha['nome']));
         $descricao = $linha['descricao'];
         $data_criado = $linha['createAt'];
         $responsavel = $linha['criado_por'];
+
+
         // CONVERTENDO DATA/HORA PARA PADRAO PORTUGUES-BR
         $data_criado = date('d/m/Y H:i:s',  strtotime($data_criado));
+
     ?>
         <tbody>
             <tr>
@@ -66,23 +75,28 @@ if (isset($_SESSION['success'])) {
                 <td><?php echo $responsavel; ?></td>
                 <td><?php echo $data_criado; ?></td>
                 <td class="text text-center">
+
                     <a href="#" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#visulaizarCliente" data-whatever="<?php echo $linha['id_cliente']; ?>" data-whatevernome="<?php echo ucwords(strtolower($linha['nome'])); ?>" data-whateveremail="<?php echo $linha['email']; ?>" data-whatevertelefone="<?php echo $linha['telefone']; ?>" data-whateverrua="<?php echo ucwords(strtolower($linha['rua'])); ?>" data-whatevernumero="<?php echo $linha['numero']; ?>" data-whateverbairro="<?php echo $linha['bairro']; ?>" data-whatevercomplemento="<?php echo $linha['complemento']; ?>" data-whatevercep="<?php echo $linha['cep']; ?>" data-whatevercidade="<?php echo $linha['cidade']; ?>" data-whateveruf="<?php echo $linha['uf']; ?>" data-whatevertelefone="<?php echo $linha['telefone']; ?>" data-whatevercelular="<?php echo $linha['celular']; ?>" data-whatevercpf="<?php echo $linha['cpf']; ?>" data-whateverrg="<?php echo $linha['rg']; ?>" data-whatevernascimento="<?php echo $nascimento; ?>" data-whateveroperador="<?php echo $linha['criado_por']; ?>" data-whateversituacao="<?php echo $situacao; ?>" data-whateverdata-cadastro="<?php echo $data_cadastro; ?>" data-whateveralterado_por="<?php echo $alterado_por; ?>" data-whateverultima_alteracao="<?php echo $ultima_alteracao; ?>">
+
                         <i class="far fa-eye text text-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Visualizar"></i>
                     </a>
                 </td>
+
                 <td class="text text-center">
                     <a href="#" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#editarCliente" data-whatever="<?php echo $linha['id_cliente']; ?>" data-whatevernome="<?php echo ucwords(strtolower($linha['nome'])); ?>" data-whateveremail="<?php echo $linha['email']; ?>" data-whatevertelefone="<?php echo $linha['telefone']; ?>" data-whateverrua="<?php echo ucwords(strtolower($linha['rua'])); ?>" data-whatevernumero="<?php echo $linha['numero']; ?>" data-whateverbairro="<?php echo $linha['bairro']; ?>" data-whatevercomplemento="<?php echo $linha['complemento']; ?>" data-whatevercep="<?php echo $linha['cep']; ?>" data-whatevercidade="<?php echo $linha['cidade']; ?>" data-whateveruf="<?php echo $linha['uf']; ?>" data-whatevertelefone="<?php echo $linha['telefone']; ?>" data-whatevercelular="<?php echo $linha['celular']; ?>" data-whatevercpf="<?php echo $linha['cpf']; ?>" data-whateverrg="<?php echo $linha['rg']; ?>" data-whatevernascimento="<?php echo $nascimento; ?>" data-whateveroperador="<?php echo $linha['criado_por']; ?>" data-whateversituacao="<?php echo $linha['situacao']; ?>" data-whateverdata-cadastro="<?php echo $data_cadastro ?>" data-whateveralterado_por="<?php echo $alterado_por; ?>" data-whateverultima_alteracao="<?php echo $ultima_alteracao; ?>">
+
                         <i class="far fa-edit text text-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"></i></a>
                 </td>
                 <td class="text text-center">
                     <a href="processa_excluir_clientes.php?id_cliente=<?php echo $linha['id_cliente']; ?>" onClick="return confirm('Deseja realmente deletar o cliente?')">
-                        <i class="far fa-trash-alt text text-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Excluir"></i>
-                    </a>
+                        <i class="far fa-trash-alt text text-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Excluir"></i></a>
                 </td>
+
             </tr>
         </tbody>
     <?php } ?>
 </table>
+
 <!-- ================================== MODAL CADASTRAR CLIENTE----------------------------------------------------------------->
 <style>
     .errorInput {
@@ -114,6 +128,7 @@ if (isset($_SESSION['success'])) {
         }
         return r;
     }
+
     // ================================ FUNÇÃO PARA MASCARA DE CELULAR =============================================
     function mask(o, f) {
         setTimeout(function() {
@@ -138,14 +153,17 @@ if (isset($_SESSION['success'])) {
         }
         return r;
     }
+
     // ================================ FUNÇÃO PARA MASCARA DE CPF =============================================
     $(document).ready(function() {
         $("#cpf").mask("999.999.999-99");
     });
+
     // ================================ FUNÇÃO PARA MASCARA DE NASCIMENTO =============================================
     $(document).ready(function() {
         $("#nascimento").mask("99/99/9999");
     });
+
     // FUNÇÃO PARA ADICONAR ENDEREÇO VIA CEP (https://viacep.com.br/exemplo/javascript/)
     function limpa_formulário_cep() {
         //Limpa valores do formulário de cep.
@@ -171,83 +189,120 @@ if (isset($_SESSION['success'])) {
     }
 
     function pesquisacep(valor) {
+
         //Nova variável "cep" somente com dígitos.
         var cep = valor.replace(/\D/g, '');
+
         //Verifica se campo cep possui valor informado.
         if (cep != "") {
+
             //Expressão regular para validar o CEP.
             var validacep = /^[0-9]{8}$/;
+
             //Valida o formato do CEP.
             if (validacep.test(cep)) {
+
                 //Preenche os campos com "..." enquanto consulta webservice.
                 document.getElementById('rua').value = "...";
                 document.getElementById('bairro').value = "...";
                 document.getElementById('cidade').value = "...";
                 document.getElementById('uf').value = "...";
+
                 //Cria um elemento javascript.
                 var script = document.createElement('script');
+
                 //Sincroniza com o callback.
                 script.src = 'https://viacep.com.br/ws/' + cep + '/json/?callback=meu_callback';
+
                 //Insere script no documento e carrega o conteúdo.
                 document.body.appendChild(script);
-            } else {
+
+            } //end if.
+            else {
                 //cep é inválido.
                 limpa_formulário_cep();
                 alert("Formato de CEP inválido.");
             }
-        } else {
+        } //end if.
+        else {
             //cep sem valor, limpa formulário.
             limpa_formulário_cep();
         }
     };
+
+
     $(document).ready(function() {
+
         $('#insert_form').on('submit', function(event) {
             event.preventDefault(); //EVITA O SUBMIT DO FORM
+
             var nome = $('#nome'); // PEGA O CAMPO CLIENTE DO FORM
+
             var erro = $('.alert-danger'); // PEGA O CAMPO COM A class alert e CRIA A VARIAVEL erro
             var campo = $('#campo-erro'); // CRIA A VARIAVEL PATA EXIBIR O NOME DO CAMPO COM ERROcampo-sucesso
+
+
             erro.addClass('d-none');
             $('.is-invalid').removeClass('is-invalid');
             $('.is-valid').removeClass('is-valid');
+
+
             if (!nome.val().match(/[A-Za-z\d]/)) {
                 erro.removeClass('d-none'); //REMOVE A CLASSE (d-none) DO BOOTSTRAP E EXIBE O ALERTA
                 campo.html('cliente'); // ADICIONA AO ALERTA O NOME DO CAMPO NAO PREENCHIDO
                 nome.focus(); //COLOCA O CURSOR NO CAMPO COM ERRO
                 nome.addClass('is-invalid');
+
+
                 return false;
+
             } else {
+
                 var dados = $("#insert_form").serialize();
                 console.log('Chamando a função')
                 $.post("processa_cad_relatorio.php", dados, function(retorna) {
                     if (retorna) {
                         //Limpar os campo
                         $('#insert_form')[0].reset();
+
                         //Fechar a janela modal cadastrar
                         $('#cadCliente').modal('hide');
                         $('#sucessModal').modal('show');
+
                         setInterval(function() {
                             var redirecionar = "listar_relatorios.php";
                             $(window.document.location).attr('href', redirecionar);
+
                         }, 3000);
+
                     } else {
+
                         return false;
                     }
+
                 });
+
             }
+
         });
+
     });
 </script>
+
+
 <!-- Modal ALERTA DE CADASTRO COM SUCESSO-->
 <div class="modal fade" id="sucessModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel"></h5>
+
             </div>
             <div class="modal-body bg-success text text-center text-white">
                 RELATORIO CADASTRADO COM SUCESSO!
             </div>
             <div class="modal-footer">
+
             </div>
         </div>
     </div>
@@ -258,11 +313,13 @@ if (isset($_SESSION['success'])) {
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel"></h5>
+
             </div>
             <div class="modal-body bg-danger text text-center text-white">
                 RELATORIO NÃO CADASTRADO!
             </div>
             <div class="modal-footer">
+
             </div>
         </div>
     </div>
@@ -273,17 +330,25 @@ if (isset($_SESSION['success'])) {
         <div class="modal-content">
             <div class="modal-header ">
                 <h5 class="modal-title" id="exampleModalLabel">CADASTRO DE RELATORIOS</h5>
+
+
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
+
+
             </div>
+
+
             <!-- ALERTA PARA ERRO DE PREENCHIMENTO DE FORMULARIO -->
             <div class="alert alert-danger d-none fade show m-3" role="alert">
                 <strong>ERRO!</strong> - <strong>Preencha o campo <span id="campo-erro"></span></strong>!
                 <span id="msg"></span>
             </div>
+
             <div class="modal-body">
                 <form method="POST" id="insert_form" enctype="multipart/form-data">
+
                     <div class="row">
                         <div class="col-md-6 col-sm-12">
                             <label for="recipient-nome" class="col-form-label">Descrição</label>
@@ -292,33 +357,41 @@ if (isset($_SESSION['success'])) {
                         <div class="col-md-6 col-sm-12">
                             <label for="recipient-email" class="col-form-label">Paciente</label>
                             <select name="paciente" id="paciente" class="form-control form-select-lg mb-5 select2" aria-label=".form-select-lg example">
-                                <?php
+                            <?php
                                 // PHP loop to generate select options
-                                while ($cliente = mysqli_fetch_assoc($clientes)) {
-                                    echo "<option value='" . $cliente['id_cliente'] . "'>" . ucwords(strtolower($cliente['nome'])) . "</option>";
+                                while ($cliente = mysqli_fetch_assoc($clientes)){
+                                    echo "<option value='".$cliente['id_cliente']."'>".ucwords(strtolower($cliente['nome']))."</option>";
                                 }
-                                ?>
-                            </select>
+                            ?>
+                        </select>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-md-10 col-sm-12">
                             <label for="recipient-rua" class="col-form-label">Arquivo</label>
                             <input type="file" name="arquivo" id="rua" maxlength="50" class="form-control">
                         </div>
+
                     </div>
-                </form>
+                    
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                 <button type="submit" class="btn btn-primary" id="btn-cadastrar">Salvar</button>
+
             </div>
+
+            </form>
+
+
         </div>
+        <!--
         <div class="m-2 col-md-8 col-sm-8 alert alert-primary ">
             Informe o CEP e tecle [ ENTER ] para autopreencher o endereço !
         </div>
+                            -->
     </div>
-</div>
 </div>
 
 
@@ -334,6 +407,7 @@ if (isset($_SESSION['success'])) {
             </div>
             <div class="modal-body">
                 <form>
+
                     <div class="row">
                         <div class="col-md-6 col-sm-12">
                             <label for="recipient-name" class="col-form-label">Nome</label>
@@ -344,6 +418,7 @@ if (isset($_SESSION['success'])) {
                             <input type="text" class="form-control" id="recipient-email" disabled>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-md-10 col-sm-12">
                             <label for="recipient-rua" class="col-form-label">Rua</label>
@@ -353,7 +428,9 @@ if (isset($_SESSION['success'])) {
                             <label for="recipient-numero" class="col-form-label">Nº</label>
                             <input type="text" name="numero" id="recipient-numero" class="form-control -10" disabled>
                         </div>
+
                     </div>
+
                     <div class="row">
                         <div class="col-md-5 col-sm-12">
                             <label for="recipient-bairro" class="col-form-label">Bairro</label>
@@ -367,7 +444,9 @@ if (isset($_SESSION['success'])) {
                             <label for="recipient-cep" class="col-form-label">Cep</label>
                             <input type="text" name="cep" id="recipient-cep" maxlength="50" class="form-control" disabled>
                         </div>
+
                     </div>
+
                     <div class="row">
                         <div class="col-md-4 col-sm-12">
                             <label for="recipient-cidade" class="col-form-label">Cidade</label>
@@ -386,6 +465,7 @@ if (isset($_SESSION['success'])) {
                             <input type="text" name="celular" id="recipient-celular" maxlength="50" onkeypress="mask(this, celular);" onblur="mask(this, celular);" class="form-control -10" disabled>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-md-4 col-sm-12">
                             <label for="recipient-cpf" class="col-form-label">CPF</label>
@@ -410,13 +490,16 @@ if (isset($_SESSION['success'])) {
                             <input type="text" class="form-control" id="recipient-dataCadastro" disabled>
                         </div>
                         <div class="col-md-4 col-sm-12">
+
                             <label for="recipient-situacao" class="col-form-label">Situação</label>
                             <select class="form-control form-select-lg mb-5 select2" name="situacao" id="recipient-situacao" aria-label=".form-select-lg example" disabled>
                                 <option value="Pendente">Pendente</option>
                                 <option value="Ativo">Ativo</option>
                                 <option value="Inativo">Inativo</option>
                                 <option value="Cancelado">Cancelado</option>
+
                             </select>
+
                         </div>
                     </div>
                     <div class="row">
@@ -428,12 +511,16 @@ if (isset($_SESSION['success'])) {
                             <label for="recipientultima_alteracao" class="col-form-label">Última Alteração</label>
                             <input type="text" class="form-control" name="ultima_alteracao" id="recipientultima_alteracao" disabled>
                         </div>
+
                     </div>
-                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+
             </div>
+            </form>
+
+
         </div>
     </div>
 </div>
@@ -462,8 +549,8 @@ if (isset($_SESSION['success'])) {
         var recipientdataCadastro = button.data('whateverdata-cadastro')
         var recipientalterado_por = button.data('whateveralterado_por')
         var recipientultima_alteracao = button.data('whateverultima_alteracao')
-        var modal = $(this)
 
+        var modal = $(this)
         modal.find('.modal-title').text('VISUALIZAR CLIENTE CÓDIGO: ' + recipient)
         modal.find('#id').val(recipient)
         modal.find('#recipient-name').val(recipientnome)
@@ -486,6 +573,7 @@ if (isset($_SESSION['success'])) {
         modal.find('#recipient-dataCadastro').val(recipientdataCadastro)
         modal.find('#recipient-alterado_por').val(recipientalterado_por)
         modal.find('#recipientultima_alteracao').val(recipientultima_alteracao)
+
     })
 </script>
 
@@ -501,6 +589,7 @@ if (isset($_SESSION['success'])) {
             </div>
             <div class="modal-body">
                 <form method="POST" action="processa_edit_clientes.php" enctype="multipart/form-data">
+
                     <div class="row">
                         <div class="col-md-6 col-sm-12">
                             <label for="recipient-name" class="col-form-label">Nome</label>
@@ -511,6 +600,7 @@ if (isset($_SESSION['success'])) {
                             <input type="email" class="form-control" id="recipient-email" name="email">
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-md-10 col-sm-12">
                             <label for="recipient-rua" class="col-form-label">Rua</label>
@@ -520,7 +610,9 @@ if (isset($_SESSION['success'])) {
                             <label for="recipient-numero" class="col-form-label">Nº</label>
                             <input type="text" name="numero" id="recipient-numero" class="form-control -10">
                         </div>
+
                     </div>
+
                     <div class="row">
                         <div class="col-md-5 col-sm-12">
                             <label for="recipient-bairro" class="col-form-label">Bairro</label>
@@ -534,7 +626,9 @@ if (isset($_SESSION['success'])) {
                             <label for="recipient-cep" class="col-form-label">Cep</label>
                             <input type="text" name="cep" id="recipient-cep" maxlength="50" class="form-control">
                         </div>
+
                     </div>
+
                     <div class="row">
                         <div class="col-md-4 col-sm-12">
                             <label for="recipient-cidade" class="col-form-label">Cidade</label>
@@ -553,6 +647,7 @@ if (isset($_SESSION['success'])) {
                             <input type="text" name="celular" id="recipient-celular" maxlength="50" onkeypress="mask(this, celular);" onblur="mask(this, celular);" class="form-control -10">
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-md-4 col-sm-12">
                             <label for="recipient-cpf" class="col-form-label">CPF</label>
@@ -577,15 +672,20 @@ if (isset($_SESSION['success'])) {
                             <input type="text" class="form-control" id="recipient-dataCadastro" disabled>
                         </div>
                         <div class="col-md-4 col-sm-12">
+
                             <label for="recipient-situacao" class="col-form-label">Situação</label>
                             <select class="form-control form-select-lg mb-5 select2" name="situacao" id="recipient-situacao" aria-label=".form-select-lg example">
                                 <option value="Pendente">Pendente</option>
                                 <option value="Ativo">Ativo</option>
                                 <option value="Inativo">Inativo</option>
                                 <option value="Cancelado">Cancelado</option>
+
                             </select>
+
                         </div>
                     </div>
+
+
                     <div class="row">
                         <div class="col-md-4 col-sm-12">
                             <label for="recipient-operador" class="col-form-label cli">Alterado por</label>
@@ -595,14 +695,20 @@ if (isset($_SESSION['success'])) {
                             <label for="recipient-dataCadastro" class="col-form-label">Última Alteração</label>
                             <input type="text" class="form-control" name="ultima_alteracao" id="recipientultima_alteracao" value="<?php echo date('d/m/Y - H:i:s') ?>" disabled>
                         </div>
+
                     </div>
+
+
                     <input type="hidden" name="id" class="form-control" id="id">
-                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                 <button type="submit" class="btn btn-primary">Salvar Alterações</button>
             </div>
+
+            </form>
+
+
         </div>
     </div>
 </div>
@@ -631,8 +737,8 @@ if (isset($_SESSION['success'])) {
         var recipientdataCadastro = button.data('whateverdata-cadastro')
         var recipientalterado_por = button.data('whateveralterado_por')
         var recipientultima_alteracao = button.data('whateverultima_alteracao')
-        var modal = $(this)
 
+        var modal = $(this)
         modal.find('.modal-title').text('EDITAR CLIENTE CÓDIGO: ' + recipient)
         modal.find('#id').val(recipient)
         modal.find('#recipient-name').val(recipientnome)
@@ -655,14 +761,19 @@ if (isset($_SESSION['success'])) {
         modal.find('#recipient-dataCadastro').val(recipientdataCadastro)
         modal.find('#recipient-alterado_por').val(recipientalterado_por)
         modal.find('#recipientultima_alteracao').val(recipientultima_alteracao)
+
     })
 </script>
+
+
 <script>
     $(document).ready(function() {
         $(function() {
             //Pesquisar os cursos sem refresh na página
             $("#pesquisa_cliente").keyup(function() {
+
                 var pesquisa_cliente = $(this).val();
+
                 //Verificar se há algo digitado
                 if (pesquisa_cliente != '') {
                     var dados = {
@@ -677,5 +788,6 @@ if (isset($_SESSION['success'])) {
                 }
             });
         });
+
     });
 </script>

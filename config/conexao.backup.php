@@ -1,8 +1,8 @@
 <?php
 	$servidor = "localhost";
-	$usuario = "infosave";
-	$senha = "infosave";
-	$dbname = "infosave";
+	$usuario = "u691240250_infosave";
+	$senha = "infosaveSystembd#11";
+	$dbname = "u691240250_infosavebd";
 	$conn = mysqli_connect($servidor, $usuario, $senha, $dbname);
 	if(!$conn){
 		echo "ERROR: 1";

@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 include('config/conexao.php');
 include_once("config/seguranca.php");
 seguranca_adm();
@@ -24,6 +25,7 @@ $criado_por = $_SESSION['usuarioNome'];
 $situacao = mysqli_real_escape_string($conn, $_POST['situacao']);
 $data_cadastro = date('Y-m-d H:i:s');
 
+
 $nascimento = mysqli_real_escape_string($conn, $_POST['nascimento']);
 $nascimento = str_replace("/", "-", $nascimento);
 $nascimento = date('Y-m-d', strtotime($nascimento));
@@ -41,9 +43,11 @@ $especialidades = [
     'Cuidador de Idosos' => (isset($_POST['cuidador_idosos']) ? 1 : 0)
 ];
 
-$cadastrar_paciente = "INSERT INTO pacientes (nome, nascimento, tomador, sexo, telefone_residencia, diagnostico, bairro, uf, cep, cidade, rua, numero, regiao, post, criado_por, situacao, pad_autorizado) 
+
+
+$alterar_pacientes = "INSERT INTO pacientes (nome, nascimento, tomador, sexo, telefone_residencia, diagnostico, bairro, uf, cep, cidade, rua, numero, regiao, post, criado_por, situacao, pad_autorizado) 
 VALUES ('$nome', '$nascimento','$tomador', '$sexo', '$telefone', '$diagnostico', '$bairro', '$uf', '$cep', '$cidade','$rua', '$numero','$regiao', '$post', '$criado_por', '$situacao', '$pad')";
-$resposta = mysqli_query($conn, $cadastrar_paciente);
+$resposta = mysqli_query($conn, $alterar_pacientes);
 if($resposta){
 
     $ultimo_id_inserido = mysqli_insert_id($conn);
@@ -54,6 +58,7 @@ if($resposta){
             mysqli_query($conn, $adicionar_especialidades);
         }
     }
+    
 
     $_SESSION['success'] = "<div class='danger' role='alert' id='sumirDiv'><center>Área Restrita - Realize Login</center></div>";
     $_SESSION['success'] = "<div class='alert alert-success alert-dismissible fade show text text-center mb-0' role='alert'>
@@ -77,4 +82,6 @@ if($resposta){
      header('Location: listar_pacientes.php');
     
 }
+
+
 ?>

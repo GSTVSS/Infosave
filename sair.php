@@ -16,5 +16,5 @@ unset(
 	);
 $_SESSION['logindeslogado'] = "Deslogado com sucesso";
 
-header("Location: landpage/index.html");
+header("Location: login.php");
 ?>
