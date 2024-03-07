@@ -66,7 +66,7 @@ if ($resposta) {
                                 </button>
                                 
                         </div>";
-    //header('Location: listar_pacientes.php');
+    header('Location: listar_pacientes.php');
 } else {
     $_SESSION['error'] = "<div class='alert alert-danger alert-dismissible fade show text text-center mb-0' role='alert'>
                                 
@@ -76,6 +76,6 @@ if ($resposta) {
                                 </button>
                                 
                             </div>";
-    //header('Location: listar_pacientes.php');
+    header('Location: listar_pacientes.php');
 }
 ?>
