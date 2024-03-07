@@ -26,7 +26,7 @@ if (isset($_SESSION['success'])) {
 <div class="container-flex text-center p-3 d-flex justify-content-center bg-secondary">
     <div class="containder-flex text-center w-50 hstack bg-secondary gap-3">
         <input class="form-control me-2 h-40 p-4 shadow bg-body-tertiary rounded" type="search" name="pesquisa_paciente" placeholder="Buscar" aria-label="Buscar" required="autofocus">
-        <button type="submit" class="btn btn-primary btn-lg h-100 shadow rounded" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#PesquisarPaciente">Buscar</button>
+        <!-- <button type="button" class="btn btn-primary btn-lg h-100 shadow rounded" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#pesquisa_paciente">Buscar</button> -->
         <button type="button" class="btn btn-primary btn-lg h-100 shadow rounded" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#cadPacientes">Cadastrar</button>
     </div>
 </div>
@@ -849,181 +849,201 @@ if (isset($_SESSION['success'])) {
     })
 </script>
 
-<!-- -----------------------------------MODAL EDITAR PACOEM----------------------------------------------------------------->
-<div class="modal fade" id="editarPaciente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+<!-- -----------------------------------MODAL EDITAR PACIENTE----------------------------------------------------------------->
+<div class="modal fade" id="editarPaciente" tabindex="-1" aria-labelledby="exempleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl text-light">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+            <div class="modal-header bg-secondary">
+                <h5 class="modal-title fw-bolder" id="exempleModalLabel">Cadastrar Paciente</h5>
+
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" aria-hidden="true"></button>
             </div>
-            <div class="modal-body">
-                <form method="POST" action="processa_edit_paciente.php" enctype="multipart/form-data">
-                    <!--//dados pessoais//-->
+
+            <div class="alert alert-danger d-none fade show m-3" role="alert">
+                <strong>ERRO!</strong> - <strong> Preencha todos os campos <span id="campo-erro"></span></strong>!
+                <span id="msg"></span>
+            </div>
+
+            <div class="modal-body bg-secondary" onpaste="return false">
+                <br>
+                <h5 class="text-center p-2 fw-bolder">Dados Pessoais</h5>
+                <form method="POST" id="insert_form">
                     <div class="row">
-                        <div class="col-6">
-                            <label for="recipient-name" class="col-form-label">Nome</label>
-                            <input type="text" class="form-control" name="nome" id="recipient-name">
+                        <div class="col-12">
+                            <label for="recipient-name" class="col-form-label fw-semibold">Nome Completo</label>
+                            <input type="text" class="form-control fw-semibold required opacity-75" name="nome" id="name">
                         </div>
-                        <div class="col-md-10 col-sm-12">
-                            <label for="recipient-sexo" class="col-form-label">Sexo</label>
-                            <input type="text" class="form-control" name="sexo" id="recipient-sexo">
+                        <div class="col-4">
+                            <label for="recipient-sexo" class="col-form-label fw-semibold">Sexo</label>
+                            <select class="form-control form-select opacity-75" name="sexo" id="sexo" aria-label="form-select">
+                                <option value="MASCULINO">MASCULINO</option>
+                                <option value="FEMININO">FEMININO</option>
+                                <option value="OUTRO">OUTRO</option>
+                            </select>
                         </div>
-                        <div class="col-6">
-                            <label for="recipient-nascimento" class="col-form-label">Data de Nascimento</label>
-                            <input type="text" class="form-control" name="nascimento" id="recipient-nascimento">
+                        <div class="col-4">
+                            <label for="recipient-nascimento" class="col-form-label fw-semibold">Data de Nascimento</label>
+                            <input type="text" class="form-control required opacity-75" name="nascimento" id="nascimento">
                         </div>
-                        <div class="col-md-10 col-sm-12">
-                            <label for="recipient-telefone_residencia" class="col-form-label">Contato</label>
-                            <input type="text" class="form-control" name="telefone_residencia" id="recipient-telefone_residencia">
+                        <div class="col-4">
+                            <label for="recipient-telefone_residencia" class="col-form-label fw-semibold">Contato</label>
+                            <input type="text" max="15" class="form-control required opacity-75" name="telefone_residencia" id="telefone_residencia" onkeyup="mask(this)">
                         </div>
                     </div>
-                    <!--//informações do quadro do paciente//-->
+                    <br>
+                    <h5 class="text-center p-2 fw-bolder">Quadro do Paciente</h5>
                     <div class="row">
-                        <div class="col-md-10 col-sm-12">
-                            <label for="recipient-tomador" class="col-form-label">Tomador</label>
-                            <select class="form-control form-select-lg select2" name="tomador" id="recipient-tomador" aria-label=".form-select-lg example">
+                        <div class="col-4">
+                            <label for="recipient-tomador" class="col-form-label fw-semibold">Tomador</label>
+                            <select class="form-control form-select required opacity-75" name="tomador" id="tomador" aria-label="form-select">
                                 <option value="DOMICILIE">DOMICILIE</option>
                                 <option value="IDEAL CARE">IDEAL CARE</option>
                                 <option value="MAX">MAX</option>
                                 <option value="MODELOS">MODELOS</option>
                                 <option value="PIONNIER">PIONNIER</option>
                                 <option value="QUALIFIC">QUALIFIC</option>
-                                <option value="QUALIFICSP">QUALIFICSP</option>
+                                <option value="QUALIFICSP">QUALIFIC-SP</option>
                                 <option value="TRUE CARE">TRUE CARE</option>
                             </select>
                         </div>
+                        <div class="col-4">
+                            <label for="recipient-name" class="col-form-label fw-semibold">Pad</label>
+                            <select class="form-control form-select required opacity-75" name="pad" id="pad_autorizado" aria-label="form-select">
+                                <option value="6">06 Horas</option>
+                                <option value="12">12 Horas</option>
+                                <option value="24">24 Horas</option>
+                            </select>
+                        </div>
                     </div>
+                    <br>
                     <div class="row">
-                        <div class="col-md-10 col-sm-12">
-                            <label for="recipient-especialidade" class="col-form-label">Especialidade</label>
+                        <div class="col">
+                            <label for="recipient-especialidade" class="col-form-label fw-semibold">Especialidade</label>
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-4">
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="recipient-nutricionista" name="nutricionista">
+                                        <input type="radio" class="form-check-input opacity-75" id="nutricionista" name="nutricionista">
                                         <label class="form-check-label" for="nutricionista">Nutricionista</label>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-4">
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="recipient-medico" name="medico">
+                                        <input type="radio" class="form-check-input opacity-75" id="medico" name="medico">
                                         <label class="form-check-label" for="medico">Médico</label>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-4">
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="recipient-fonoaudilogo" name="fonoaudilogo">
+                                        <input type="radio" class="form-check-input opacity-75" id="fonoaudilogo" name="fonoaudilogo">
                                         <label class="form-check-label" for="fonoaudilogo">Fonoaudiólogo</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-4">
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="recipient-fisioterapeuta" name="fisioterapeuta">
+                                        <input type="radio" class="form-check-input opacity-75" id="fisioterapeuta" name="fisioterapeuta">
                                         <label class="form-check-label" for="fisioterapeuta">Fisioterapeuta</label>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-4">
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="recipient-auxiliar_enfermagem" name="auxiliar_enfermagem">
+                                        <input type="radio" class="form-check-input opacity-75" id="auxiliar_enfermagem" name="auxiliar_enfermagem">
                                         <label class="form-check-label" for="auxiliar_enfermagem">Auxiliar de Enfermagem</label>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-4">
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="recipient-tecnico_enfermagem" name="tecnico_enfermagem">
+                                        <input type="radio" class="form-check-input opacity-75" id="tecnico_enfermagem" name="tecnico_enfermagem">
                                         <label class="form-check-label" for="tecnico_enfermagem">Técnico de Enfermagem</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-4">
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="recipiente-enfermeiro" name="enfermeiro">
+                                        <input type="radio" class="form-check-input opacity-75" id="enfermeiro" name="enfermeiro">
                                         <label class="form-check-label" for="enfermeiro">Enfermeiro</label>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-4">
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="recipient-cuidador_idosos" name="cuidador_idosos">
+                                        <input type="radio" class="form-check-input opacity-75" id="cuidador_idosos" name="cuidador_idosos">
                                         <label class="form-check-label" for="cuidador_idosos">Cuidador de Idosos</label>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-4">
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="recipient-terapeuta_ocupacional" name="terapeuta_ocupacional">
+                                        <input type="radio" class="form-check-input opacity-75" id="terapeuta_ocupacional" name="terapeuta_ocupacional">
                                         <label class="form-check-label" for="cuidador">Terapeuta Ocupacional</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-4">
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="recipient-psicologo" name="psicologo">
+                                        <input type="radio" class="form-check-input opacity-75" id="psicologo" name="psicologo">
                                         <label class="form-check-label" for="cuidador">Psicólogo</label>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <br>
                     <div class="row">
-                        <div class="col-md-10 col-sm-12">
-                            <label for="recipient-diagnostico" class="col-form-label">Diagnostico</label>
-                            <textarea class="form-control" name="diagnostico" id="recipient-diagnostico" rows="5"></textarea>
-                        </div>
-                        <div class="col-md-10 col-sm-12">
-                            <label for="recipient-especialidade" class="col-form-label">Especialidade</label>
-                            <input type="text" class="form-control" id="recipient-especialidade">
-                        </div>
-                        <div class="col-md-2 col-sm-12">
-                            <label for="recipient-pad_autorizado" class="col-form-label">PAD</label>
-                            <input type="text" name="pad" id="recipient-pad_autorizado" maxlength="50" class="form-control">
+                        <div class="mb-3">
+                            <label for="recipient-diagnostico" class="form-label fw-semibold">Diagnostico</label>
+                            <br>
+                            <textarea id="diagnostico" class="form-control opacity-75" rows="10" name="diagnostico"></textarea>
                         </div>
                     </div>
-                    <!--//informações sobre o endereço do paciente//-->
+                    <br>
+                    <h5 class="text-center p-2 fw-bolder">Endereço</h5>
                     <div class="row">
-                        <div class="col-md-5 col-sm-12">
-                            <label for="recipient-cep" class="col-form-label">Cep</label>
-                            <input type="text" name="cep" id="recipient-cep" maxlength="50" class="form-control">
+                        <div class="col-6">
+                            <label for="recipient-cidade" class="col-form-label fw-semibold">Cidade</label>
+                            <input type="text" name="cidade" id="cidade" maxlength="50" class="form-control opacity-75">
                         </div>
-                        <div class="col-md-2 col-sm-12">
-                            <label for="recipient-uf" class="col-form-label">UF</label>
-                            <input type="text" name="uf" id="recipient-uf" maxlength="50" class="form-control">
+                        <div class="col-6">
+                            <label for="recipient-rua" class="col-form-label fw-semibold">Rua</label>
+                            <input type="text" name="rua" id="rua" maxlength="50" class="form-control opacity-75">
                         </div>
-                        <div class="col-md-5 col-sm-12">
-                            <label for="recipient-cidade" class="col-form-label">Cidade</label>
-                            <input type="text" name="cidade" id="recipient-cidade" maxlength="50" class="form-control -10">
+                        <div class="col-2">
+                            <label for="recipient-cep" class="col-form-label fw-semibold">Cep</label>
+                            <input type="text" name="cep" id="cep" maxlength="50" class="form-control opacity-75" onblur="pesquisacep(this.value)">
                         </div>
-                        <div class="col-md-2 col-sm-12">
-                            <label for="recipient-bairro" class="col-form-label">Bairro</label>
-                            <input type="text" name="bairro" id="recipient-bairro" maxlength="50" class="form-control">
+                        <div class="col-2">
+                            <label for="recipient-uf" class="col-form-label fw-semibold">UF</label>
+                            <input type="text" name="uf" id="uf" maxlength="50" class="form-control opacity-75">
                         </div>
-                        <div class="col-md-2 col-sm-12">
-                            <label for="recipient-rua" class="col-form-label">Rua</label>
-                            <input type="text" name="rua" id="recipient-rua" maxlength="50" class="form-control">
+
+                        <div class="col-2">
+                            <label for="recipient-bairro" class="col-form-label fw-semibold">Bairro</label>
+                            <input type="text" name="bairro" id="bairro" maxlength="50" class="form-control opacity-75">
                         </div>
-                        <div class="col-md-2 col-sm-12">
-                            <label for="recipient-numero" class="col-form-label">Nº</label>
-                            <input type="text" name="numero" id="recipient-numero" maxlength="50" class="form-control">
+                        <div class="col-2">
+                            <label for="recipient-numero" class="col-form-label fw-semibold">Nº</label>
+                            <input type="text" name="numero" id="numero" maxlength="50" class="form-control opacity-75">
                         </div>
-                        <div class="col-md-2 col-sm-12">
-                            <label for="recipient-regiao" class="col-form-label">Região</label>
-                            <input type="text" name="regiao" id="recipient-regiao" maxlength="50" class="form-control">
+                        <div class="col-2">
+                            <label for="recipient-regiao" class="col-form-label fw-semibold">Região</label>
+                            <input type="text" name="regiao" id="regiao" maxlength="50" class="form-control opacity-75">
                         </div>
                     </div>
+                    <br>
+                    <h5 class="text-center p-2 fw-bolder">Informarções adicionais</h5>
                     <div class="row">
-                        <div class="col-md-4 col-sm-12">
-                            <label for="recipient-criado_por" class="col-form-label cli">Cadastrado por</label>
-                            <input type="text" name="criado_por" id="recipient-criado_por" maxlength="50" class="form-control">
+                        <div class="col-4">
+                            <label for="recipient-criado_por" class="form-label fw-semibold ">Operador</label>
+                            <input type="text" name="criado_por" id="criado_por" maxlength="50" class="form-control opacity-75" value="<?php echo $_SESSION['usuarioNome'] ?>" disabled>
                         </div>
-                        <div class="col-md-4 col-sm-12">
-                            <label for="recipient-data_cadastro" class="col-form-label">Data do cadastro</label>
-                            <input type="text" class="form-control" id="recipient-data_cadastro">
+                        <div class="col-4">
+                            <label for="recipient-data_cadastro" class="form-label fw-semibold ">Data do cadastro</label>
+                            <input type="text" class="form-control opacity-75" disabled value="<?php echo date('d/m/Y - H:i:s') ?>">
                         </div>
-                        <div class="col-md-4 col-sm-12">
-                            <label for="recipient-situacao" class="col-form-label">Situação</label>
-                            <select class="form-control form-select-lg mb-5 select2" name="situacao" id="recipient-situacao" aria-label=".form-select-lg example">
+                        <div class="col-4">
+                            <label for="recipient-situacao" class="form-label fw-semibold">Situação</label>
+                            <select class="form-control form-select opacity-75" name="situacao" id="situacao" aria-label="form-select">
                                 <option value="PENDENTE">Aguardando Liberação</option>
                                 <option value="ATIVO">Ativo</option>
                                 <option value="HOSPITALIZADO">Hospitalizado</option>
@@ -1031,26 +1051,16 @@ if (isset($_SESSION['success'])) {
                             </select>
                         </div>
                     </div>
-                    <form class="row">
-                        <div class="col-md-4 col-sm-12">
-                            <label for="recipient-alterado_por" class="col-form-label cli">Alterado por</label>
-                            <input type="text" name="alterado_por" id="recipient-alterado_por" maxlength="50" class="form-control" disabled>
-                        </div>
-                        <div class="col-md-4 col-sm-12">
-                            <label for="recipient-ultima_alteracao" class="col-form-label">Última Alteração</label>
-                            <input type="text" class="form-control" name="ultima_alteracao" id="recipient-ultima_alteracao" disabled>
-                        </div>
-                    </form>
-                </form>
+                    <div class="p-3 bg-secondary"></div>
+            <div class="modal-footer bg-secondary">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <button type="submit" class="btn btn-primary" id="btn-cadastrar">Salvar</button>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
-                <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                </form>
             </div>
         </div>
     </div>
 </div>
-
 <!-- -----------------------------------SCRIPT MODAL EDITAR PACOEM----------------------------------------------------------------->
 <script type="text/javascript">
     $('#editarPaciente').on('show.bs.modal', function(event) {
