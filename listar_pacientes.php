@@ -318,9 +318,6 @@ if (isset($_SESSION['success'])) {
                 campo.html('telefone_residencia'); // ADICIONA AO ALERTA O NOME DO CAMPO NAO PREENCHIDO
                 telefone.focus(); //COLOCA O CURSOR NO CAMPO COM ERRO
                 telefone.addClass('is-invalid');
-
-
-
                 return false;
 
             } else {
@@ -400,7 +397,7 @@ if (isset($_SESSION['success'])) {
             </div>
 
             <div class="modal-body bg-secondary" onpaste="return false">
-                <br>
+                <br>QQ
                 <h5 class="text-center p-2 fw-bolder">Dados Pessoais</h5>
                 <form method="POST" id="insert_form">
                     <div class="row">
@@ -587,10 +584,10 @@ if (isset($_SESSION['success'])) {
                         </div>
                     </div>
                     <div class="p-3 bg-secondary"></div>
-            <div class="modal-footer bg-secondary">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                <button type="submit" class="btn btn-primary" id="btn-cadastrar">Salvar</button>
-            </div>
+                    <div class="modal-footer bg-secondary">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-primary" id="btn-cadastrar">Salvar</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -726,7 +723,7 @@ if (isset($_SESSION['success'])) {
                             <div class="row">
                                 <div class="col-4">
                                     <div class="form-check">
-                                        <input type="radio" class="form-check-input opacity-75" id="recipient-psicologo" name="psicologo" >
+                                        <input type="radio" class="form-check-input opacity-75" id="recipient-psicologo" name="psicologo">
                                         <label class="form-check-label" for="cuidador">Psicólogo</label>
                                     </div>
                                 </div>
@@ -746,7 +743,7 @@ if (isset($_SESSION['success'])) {
                     <div class="row">
                         <div class="col-6">
                             <label for="recipient-cidade" class="col-form-label fw-semibold">Cidade</label>
-                            <input type="text" name="cidade" id="recipient-cidade" maxlength="50" class="form-control opacity-75" disabled> 
+                            <input type="text" name="cidade" id="recipient-cidade" maxlength="50" class="form-control opacity-75" disabled>
                         </div>
                         <div class="col-6">
                             <label for="recipient-rua" class="col-form-label fw-semibold">Rua</label>
@@ -1082,10 +1079,10 @@ if (isset($_SESSION['success'])) {
                         </div>
                     </div>
                     <div class="p-3 bg-secondary"></div>
-            <div class="modal-footer bg-secondary">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                <button type="submit" class="btn btn-primary" id="btn-cadastrar">Salvar</button>
-            </div>
+                    <div class="modal-footer bg-secondary">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-primary" id="btn-cadastrar">Salvar</button>
+                    </div>
                 </form>
             </div>
         </div>
