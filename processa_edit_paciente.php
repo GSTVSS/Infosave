@@ -19,7 +19,6 @@ $cidade = mysqli_real_escape_string($conn, $_POST['cidade']);
 $rua = mysqli_real_escape_string($conn, $_POST['rua']);
 $numero = mysqli_real_escape_string($conn, $_POST['numero']);
 $regiao = mysqli_real_escape_string($conn, $_POST['regiao']);
-$post = mysqli_real_escape_string($conn, $_POST['post']);
 $pad = mysqli_real_escape_string($conn, $_POST['pad']);
 $criado_por = $_SESSION['usuarioNome'];
 $situacao = mysqli_real_escape_string($conn, $_POST['situacao']);
@@ -42,7 +41,7 @@ $especialidades = [
     'Cuidador de Idosos' => (isset($_POST['cuidador_idosos']) ? 1 : 0)
 ];
 
-$alterar_pacientes = "UPDATE pacientes SET nome='$nome', nascimento='$nascimento', tomador='$tomador', sexo='$sexo', telefone_residencia='$telefone', diagnostico='$diagnostico', bairro='$bairro', uf='$uf', cep='$cep', cidade='$cidade', rua='$rua', numero='$numero', regiao='$regiao', post='$post', criado_por='$criado_por', situacao='$situacao', pad_autorizado='$pad' WHERE id_paciente='$id_paciente'";
+$alterar_pacientes = "UPDATE pacientes SET nome='$nome', nascimento='$nascimento', tomador='$tomador', sexo='$sexo', telefone_residencia='$telefone', diagnostico='$diagnostico', bairro='$bairro', uf='$uf', cep='$cep', cidade='$cidade', rua='$rua', numero='$numero', regiao='$regiao', criado_por='$criado_por', situacao='$situacao', pad_autorizado='$pad' WHERE id_paciente='$id_paciente'";
 $resposta = mysqli_query($conn, $alterar_pacientes);
 
 if ($resposta) {
@@ -67,7 +66,7 @@ if ($resposta) {
                                 </button>
                                 
                         </div>";
-    header('Location: listar_pacientes.php');
+    //header('Location: listar_pacientes.php');
 } else {
     $_SESSION['error'] = "<div class='alert alert-danger alert-dismissible fade show text text-center mb-0' role='alert'>
                                 
@@ -77,6 +76,6 @@ if ($resposta) {
                                 </button>
                                 
                             </div>";
-    header('Location: listar_pacientes.php');
+    //header('Location: listar_pacientes.php');
 }
 ?>
