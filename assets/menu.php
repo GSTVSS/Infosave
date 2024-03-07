@@ -1,8 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-dark">
 
     <a class="navbar-brand" href="inicio.php">
-        <img src="assets/css/imagens/logo_vazada.svg" alt="logo" width="80"class="rounded-retangule" />
-        <span class="d-inline-block text-warning p-2" style="max-width: 200px;">InfoSave - System</span>
+        <img src="assets/css/imagens/logo1.svg" alt="logo" width="200"class="rounded-retangule" />
     </a>
 
     

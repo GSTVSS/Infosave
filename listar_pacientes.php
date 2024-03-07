@@ -20,12 +20,13 @@ if (isset($_SESSION['success'])) {
     unset($_SESSION['success']);
 }
 ?>
-<div class="p-5 bg-dark shadow row g-2 bg-secondary"></div>
-<div class="p-1 bg-secondary"></div>
+<div class="p-2 bg-dark shadow row g-2 bg-secondary"></div>
+<div class="p-1 bg-warning"></div>
 
 <div class="container-flex text-center p-3 d-flex justify-content-center bg-secondary">
     <div class="containder-flex text-center w-50 hstack bg-secondary gap-3">
         <input class="form-control me-2 h-40 p-4 shadow bg-body-tertiary rounded" type="search" name="pesquisa_paciente" placeholder="Buscar" aria-label="Buscar" required="autofocus">
+        <button type="submit" class="btn btn-primary btn-lg h-100 shadow rounded" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#PesquisarPaciente">Buscar</button>
         <button type="button" class="btn btn-primary btn-lg h-100 shadow rounded" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#cadPacientes">Cadastrar</button>
     </div>
 </div>
@@ -41,8 +42,8 @@ if (isset($_SESSION['success'])) {
                                 <th scope="col">NOME</th>
                                 <th scope="col">TOMADOR</th>
                                 <th scope="col">CONTATO</th>
-                                <th scope="col">POST</th>
                                 <th scope="col">ENDEREÇO</th>
+                                <th scope="col">SITUAÇÃO</th>
                                 <th scope="col" class="text text-center" colspan="3">AÇÕES</th>
                             </tr>
                         </thead>
@@ -98,15 +99,15 @@ if (isset($_SESSION['success'])) {
                                     <td><?php echo ucwords(strtolower($nome)); ?></td>
                                     <td><?php echo $linha['tomador']; ?></td>
                                     <td><?php echo $linha['telefone_residencia']; ?></td>
-                                    <td><?php echo $linha['post']; ?></td>
                                     <td><?php echo $endereco; ?></td>
+                                    <td><?php echo $linha['situacao']; ?></td>
                                     <td class="text text-center">
-                                        <a href="#" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#visulaizarPaciente" data-whatever=" <?php echo $linha['id_paciente']; ?>" data-whatevernome="<?php echo ucwords(strtolower($linha['nome'])); ?>" data-whateversexo="<?php echo $linha['sexo']; ?>" data-whatevernascimento="<?php echo $linha['nascimento']; ?>" data-whatevertelefone_residencia="<?php echo $linha['telefone_residencia']; ?>" data-whatevertomador="<?php echo $linha['tomador']; ?>" data-whateverdiagnostico="<?php echo $linha['diagnostico']; ?>" data-whateverpad_autorizado="<?php echo $linha['pad_autorizado']; ?>" data-whateverpost="<?php echo $linha['post']; ?>" data-whatevercep="<?php echo $linha['cep']; ?>" data-whateveruf="<?php echo $linha['uf']; ?>" data-whatevercidade="<?php echo $linha['cidade']; ?>" data-whateverbairro="<?php echo $linha['bairro']; ?>" data-whateverrua="<?php echo $linha['rua']; ?>" data-whatevernumero="<?php echo $linha['numero']; ?>" data-whateverregiao="<?php echo $linha['regiao']; ?>" data-whatevercriado_por="<?php echo $criado_por; ?>" data-whateverdata_cadastro="<?php echo $linha['data_cadastro']; ?>" data-whateversituacao="<?php echo $situacao; ?>" data-whateveralterado_por="<?php echo $linha['alterado_por']; ?>" data-whateverultima_alteracao="<?php echo $linha['ultima_alteracao']; ?>" data-whateverterapeuta_ocupacional="<?php echo $especialidades['Terapeuta Ocupacional']; ?>" data-whateverpsicologo="<?php echo $especialidades['Psicólogo']; ?>" data-whatevernutricionista="<?php echo $especialidades['Nutricionista']; ?>" data-whatevermedico="<?php echo $especialidades['Médico']; ?>" data-whateverfonoaudiólogo="<?php echo $especialidades['Fonoaudiólogo']; ?>" data-whateverfisioterapeuta="<?php echo $especialidades['Fisioterapeuta']; ?>" data-whateverenfermeiro="<?php echo $especialidades['Enfermeiro']; ?>" data-whatevercuidador_idosos="<?php echo $especialidades['Cuidador de Idosos']; ?>" data-whateverauxilia_enfermagem="<?php echo $especialidades['Auxiliar de Enfermagem']; ?>" data-whatevertecnico_enfermagem="<?php echo $especialidades['Técnico de Enfermagem']; ?>">
+                                        <a href="#" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#visualizarPaciente" data-whatever=" <?php echo $linha['id_paciente']; ?>" data-whatevernome="<?php echo ucwords(strtolower($linha['nome'])); ?>" data-whateversexo="<?php echo $linha['sexo']; ?>" data-whatevernascimento="<?php echo $linha['nascimento']; ?>" data-whatevertelefone_residencia="<?php echo $linha['telefone_residencia']; ?>" data-whatevertomador="<?php echo $linha['tomador']; ?>" data-whateverdiagnostico="<?php echo $linha['diagnostico']; ?>" data-whateverpad_autorizado="<?php echo $linha['pad_autorizado']; ?>" data-whatevercep="<?php echo $linha['cep']; ?>" data-whateveruf="<?php echo $linha['uf']; ?>" data-whatevercidade="<?php echo $linha['cidade']; ?>" data-whateverbairro="<?php echo $linha['bairro']; ?>" data-whateverrua="<?php echo $linha['rua']; ?>" data-whatevernumero="<?php echo $linha['numero']; ?>" data-whateverregiao="<?php echo $linha['regiao']; ?>" data-whatevercriado_por="<?php echo $criado_por; ?>" data-whateverdata_cadastro="<?php echo $linha['data_cadastro']; ?>" data-whateversituacao="<?php echo $situacao; ?>" data-whateveralterado_por="<?php echo $linha['alterado_por']; ?>" data-whateverultima_alteracao="<?php echo $linha['ultima_alteracao']; ?>" data-whateverterapeuta_ocupacional="<?php echo $especialidades['Terapeuta Ocupacional']; ?>" data-whateverpsicologo="<?php echo $especialidades['Psicólogo']; ?>" data-whatevernutricionista="<?php echo $especialidades['Nutricionista']; ?>" data-whatevermedico="<?php echo $especialidades['Médico']; ?>" data-whateverfonoaudiólogo="<?php echo $especialidades['Fonoaudiólogo']; ?>" data-whateverfisioterapeuta="<?php echo $especialidades['Fisioterapeuta']; ?>" data-whateverenfermeiro="<?php echo $especialidades['Enfermeiro']; ?>" data-whatevercuidador_idosos="<?php echo $especialidades['Cuidador de Idosos']; ?>" data-whateverauxilia_enfermagem="<?php echo $especialidades['Auxiliar de Enfermagem']; ?>" data-whatevertecnico_enfermagem="<?php echo $especialidades['Técnico de Enfermagem']; ?>">
                                             <i class="far fa-eye text text-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Visualizar"></i>
                                         </a>
                                     </td>
                                     <td class="text text-center">
-                                        <a href="#" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#editarPaciente" data-whatever="<?php echo $linha['id_paciente']; ?>" data-whatevernome="<?php echo ucwords(strtolower($linha['nome'])); ?>" data-whateversexo="<?php echo $linha['sexo']; ?>" data-whatevernascimento="<?php echo $linha['nascimento']; ?>" data-whatevertelefone_residencia="<?php echo $linha['telefone_residencia']; ?>" data-whatevertomador="<?php echo $linha['tomador']; ?>" data-whateverdiagnostico="<?php echo $linha['diagnostico']; ?>" data-whateverpad_autorizado="<?php echo $linha['pad_autorizado']; ?>" data-whateverpost="<?php echo $linha['post']; ?>" data-whatevercep="<?php echo $linha['cep']; ?>" data-whateveruf="<?php echo $linha['uf']; ?>" data-whatevercidade="<?php echo $linha['cidade']; ?>" data-whateverbairro="<?php echo $linha['bairro']; ?>" data-whateverrua="<?php echo $linha['rua']; ?>" data-whatevernumero="<?php echo $linha['numero']; ?>" data-whateverregiao="<?php echo $linha['regiao']; ?>" data-whatevercriado_por="<?php echo $criado_por; ?>" data-whateverdata_cadastro="<?php echo $linha['data_cadastro']; ?>" data-whateversituacao="<?php echo $situacao; ?>" data-whateveralterado_por="<?php echo $linha['alterado_por']; ?>" data-whateverultima_alteracao="<?php echo $linha['ultima_alteracao']; ?>" data-whateverterapeuta_ocupacional="<?php echo $especialidades['Terapeuta Ocupacional']; ?>" data-whateverpsicologo="<?php echo $especialidades['Psicólogo']; ?>" data-whatevernutricionista="<?php echo $especialidades['Nutricionista']; ?>" data-whatevermedico="<?php echo $especialidades['Médico']; ?>" data-whateverfonoaudiólogo="<?php echo $especialidades['Fonoaudiólogo']; ?>" data-whateverfisioterapeuta="<?php echo $especialidades['Fisioterapeuta']; ?>" data-whateverenfermeiro="<?php echo $especialidades['Enfermeiro']; ?>" data-whatevercuidador_idosos="<?php echo $especialidades['Cuidador de Idosos']; ?>" data-whateverauxilia_enfermagem="<?php echo $especialidades['Auxiliar de Enfermagem']; ?>" data-whatevertecnico_enfermagem="<?php echo $especialidades['Técnico de Enfermagem']; ?>">
+                                        <a href="#" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#editarPaciente" data-whatever="<?php echo $linha['id_paciente']; ?>" data-whatevernome="<?php echo ucwords(strtolower($linha['nome'])); ?>" data-whateversexo="<?php echo $linha['sexo']; ?>" data-whatevernascimento="<?php echo $linha['nascimento']; ?>" data-whatevertelefone_residencia="<?php echo $linha['telefone_residencia']; ?>" data-whatevertomador="<?php echo $linha['tomador']; ?>" data-whateverdiagnostico="<?php echo $linha['diagnostico']; ?>" data-whateverpad_autorizado="<?php echo $linha['pad_autorizado']; ?>" data-whatevercep="<?php echo $linha['cep']; ?>" data-whateveruf="<?php echo $linha['uf']; ?>" data-whatevercidade="<?php echo $linha['cidade']; ?>" data-whateverbairro="<?php echo $linha['bairro']; ?>" data-whateverrua="<?php echo $linha['rua']; ?>" data-whatevernumero="<?php echo $linha['numero']; ?>" data-whateverregiao="<?php echo $linha['regiao']; ?>" data-whatevercriado_por="<?php echo $criado_por; ?>" data-whateverdata_cadastro="<?php echo $linha['data_cadastro']; ?>" data-whateversituacao="<?php echo $situacao; ?>" data-whateveralterado_por="<?php echo $linha['alterado_por']; ?>" data-whateverultima_alteracao="<?php echo $linha['ultima_alteracao']; ?>" data-whateverterapeuta_ocupacional="<?php echo $especialidades['Terapeuta Ocupacional']; ?>" data-whateverpsicologo="<?php echo $especialidades['Psicólogo']; ?>" data-whatevernutricionista="<?php echo $especialidades['Nutricionista']; ?>" data-whatevermedico="<?php echo $especialidades['Médico']; ?>" data-whateverfonoaudiólogo="<?php echo $especialidades['Fonoaudiólogo']; ?>" data-whateverfisioterapeuta="<?php echo $especialidades['Fisioterapeuta']; ?>" data-whateverenfermeiro="<?php echo $especialidades['Enfermeiro']; ?>" data-whatevercuidador_idosos="<?php echo $especialidades['Cuidador de Idosos']; ?>" data-whateverauxilia_enfermagem="<?php echo $especialidades['Auxiliar de Enfermagem']; ?>" data-whatevertecnico_enfermagem="<?php echo $especialidades['Técnico de Enfermagem']; ?>">
                                             <i class="far fa-edit text text-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"></i></a>
                                     </td>
                                     <td class="text text-center">
@@ -500,22 +501,6 @@ if (isset($_SESSION['success'])) {
                             <br>
                             <textarea id="diagnostico" class="form-control opacity-75" rows="10" name="diagnostico"></textarea>
                         </div>
-                        <br>
-                        <div class="mb-3">
-                            <label for="exampleFormControlTextarea1" class="form-label fw-semibold">Poster</label>
-                            <br>
-                            <textarea class="form-control opacity-75" id="post" rows="10" name="post">🩺Amor em Cuidar🩺
-Profissão: TEC/AUX ENFERMAGEM
-Coren: Ativo
-Sexo: 
-PAD: 12h/12h, DI - NI - DP - NP
-------------- 
-Paciente: Sexo, Idade
-Endereço:
-------------- 
-HD:
-DPS:</textarea>
-                        </div>
                     </div>
                     <br>
                     <h5 class="text-center p-2 fw-bolder">Endereço</h5>
@@ -583,25 +568,28 @@ DPS:</textarea>
 </div>
 <!-- EDITAR A PARTIR DAQUI -->
 <!-- -----------------------------------MODAL VISUALIZAR PACIENTE----------------------------------------------------------------->
-<div class="modal fade" id="visualizarPaciente" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-xl text-light">
+<div class="modal fade" id="visualizarPaciente" tabindex="-1" role="dialog" aria-labelledby="exempleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl text-light" role="document">
         <div class="modal-content">
             <div class="modal-header bg-secondary">
-                <h5 class="modal-title fw-bolder" id="exempleModalLabel">Visualizar Paciente</h5>
-                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title fw-bolder" id="exempleModalLabel">Cadastrar Paciente</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body bg-secondary">
                 <br>
                 <h5 class="text-center p-2 fw-bolder">Dados Pessoais</h5>
-                <form method="POST" id="cadastro_pacientes.php">
+                <form>
+
                     <div class="row">
                         <div class="col-12">
                             <label for="recipient-name" class="col-form-label fw-semibold">Nome Completo</label>
-                            <input type="text" class="form-control fw-semibold required opacity-75" name="nome" id="name" disabled>
+                            <input type="text" class="form-control fw-semibold required opacity-75" name="nome" id="recipient-name" disabled>
                         </div>
                         <div class="col-4">
                             <label for="recipient-sexo" class="col-form-label fw-semibold">Sexo</label>
-                            <select class="form-control form-select opacity-75" name="sexo" id="sexo" aria-label="form-select" disabled>
+                            <select class="form-control form-select opacity-75" name="sexo" id="recipient-sexo" aria-label="form-select" disabled>
                                 <option value="MASCULINO">MASCULINO</option>
                                 <option value="FEMININO">FEMININO</option>
                                 <option value="OUTRO">OUTRO</option>
@@ -609,11 +597,11 @@ DPS:</textarea>
                         </div>
                         <div class="col-4">
                             <label for="recipient-nascimento" class="col-form-label fw-semibold">Data de Nascimento</label>
-                            <input type="text" class="form-control required opacity-75" name="nascimento" id="nascimento" disabled>
+                            <input type="text" class="form-control required opacity-75" name="nascimento" id="recipient-nascimento" disabled>
                         </div>
                         <div class="col-4">
                             <label for="recipient-telefone_residencia" class="col-form-label fw-semibold">Contato</label>
-                            <input type="text" max="15" class="form-control required opacity-75" name="telefone_residencia" id="telefone_residencia" onkeyup="mask(this)" disabled>
+                            <input type="text" max="15" class="form-control required opacity-75" name="telefone_residencia" id="recipient-telefone_residencia" onkeyup="mask(this)" disabled>
                         </div>
                     </div>
                     <br>
@@ -621,7 +609,7 @@ DPS:</textarea>
                     <div class="row">
                         <div class="col-4">
                             <label for="recipient-tomador" class="col-form-label fw-semibold">Tomador</label>
-                            <select class="form-control form-select required opacity-75" name="tomador" id="tomador" aria-label="form-select"disabled>
+                            <select class="form-control form-select required opacity-75" name="tomador" id="recipient-tomador" aria-label="form-select" disabled>
                                 <option value="DOMICILIE">DOMICILIE</option>
                                 <option value="IDEAL CARE">IDEAL CARE</option>
                                 <option value="MAX">MAX</option>
@@ -634,7 +622,7 @@ DPS:</textarea>
                         </div>
                         <div class="col-4">
                             <label for="recipient-name" class="col-form-label fw-semibold">Pad</label>
-                            <select class="form-control form-select required opacity-75" name="pad" id="pad_autorizado" aria-label="form-select" disabled>
+                            <select class="form-control form-select required opacity-75" name="pad" id="recipient-pad_autorizado" aria-label="form-select" disabled>
                                 <option value="6">06 Horas</option>
                                 <option value="12">12 Horas</option>
                                 <option value="24">24 Horas</option>
@@ -648,19 +636,19 @@ DPS:</textarea>
                             <div class="row">
                                 <div class="col-4">
                                     <div class="form-check">
-                                        <input type="radio" class="form-check-input opacity-75" id="nutricionista" name="nutricionista" disabled>
+                                        <input type="radio" class="form-check-input opacity-75" id="recipient-nutricionista" name="nutricionista">
                                         <label class="form-check-label" for="nutricionista">Nutricionista</label>
                                     </div>
                                 </div>
                                 <div class="col-4">
                                     <div class="form-check">
-                                        <input type="radio" class="form-check-input opacity-75" id="medico" name="medico" disabled>
+                                        <input type="radio" class="form-check-input opacity-75" id="recipient-medico" name="medico">
                                         <label class="form-check-label" for="medico">Médico</label>
                                     </div>
                                 </div>
                                 <div class="col-4">
                                     <div class="form-check">
-                                        <input type="radio" class="form-check-input opacity-75" id="fonoaudilogo" name="fonoaudilogo" disabled>
+                                        <input type="radio" class="form-check-input opacity-75" id="recipient-fonoaudilogo" name="fonoaudilogo">
                                         <label class="form-check-label" for="fonoaudilogo">Fonoaudiólogo</label>
                                     </div>
                                 </div>
@@ -668,19 +656,19 @@ DPS:</textarea>
                             <div class="row">
                                 <div class="col-4">
                                     <div class="form-check">
-                                        <input type="radio" class="form-check-input opacity-75" id="fisioterapeuta" name="fisioterapeuta" disabled>
+                                        <input type="radio" class="form-check-input opacity-75" id="recipient-fisioterapeuta" name="fisioterapeuta">
                                         <label class="form-check-label" for="fisioterapeuta">Fisioterapeuta</label>
                                     </div>
                                 </div>
                                 <div class="col-4">
                                     <div class="form-check">
-                                        <input type="radio" class="form-check-input opacity-75" id="auxiliar_enfermagem" name="auxiliar_enfermagem" disabled>
+                                        <input type="radio" class="form-check-input opacity-75" id="recipient-auxiliar_enfermagem" name="auxiliar_enfermagem">
                                         <label class="form-check-label" for="auxiliar_enfermagem">Auxiliar de Enfermagem</label>
                                     </div>
                                 </div>
                                 <div class="col-4">
                                     <div class="form-check">
-                                        <input type="radio" class="form-check-input opacity-75" id="tecnico_enfermagem" name="tecnico_enfermagem" disabled>
+                                        <input type="radio" class="form-check-input opacity-75" id="recipient-tecnico_enfermagem" name="tecnico_enfermagem">
                                         <label class="form-check-label" for="tecnico_enfermagem">Técnico de Enfermagem</label>
                                     </div>
                                 </div>
@@ -688,19 +676,19 @@ DPS:</textarea>
                             <div class="row">
                                 <div class="col-4">
                                     <div class="form-check">
-                                        <input type="radio" class="form-check-input opacity-75" id="enfermeiro" name="enfermeiro" disabled>
+                                        <input type="radio" class="form-check-input opacity-75" id="recipient-enfermeiro" name="enfermeiro">
                                         <label class="form-check-label" for="enfermeiro">Enfermeiro</label>
                                     </div>
                                 </div>
                                 <div class="col-4">
                                     <div class="form-check">
-                                        <input type="radio" class="form-check-input opacity-75" id="cuidador_idosos" name="cuidador_idosos" disabled>
+                                        <input type="radio" class="form-check-input opacity-75" id="recipient-cuidador_idosos" name="cuidador_idosos">
                                         <label class="form-check-label" for="cuidador_idosos">Cuidador de Idosos</label>
                                     </div>
                                 </div>
                                 <div class="col-4">
                                     <div class="form-check">
-                                        <input type="radio" class="form-check-input opacity-75" id="terapeuta_ocupacional" name="terapeuta_ocupacional" disabled>
+                                        <input type="radio" class="form-check-input opacity-75" id="recipient-terapeuta_ocupacional" name="terapeuta_ocupacional">
                                         <label class="form-check-label" for="cuidador">Terapeuta Ocupacional</label>
                                     </div>
                                 </div>
@@ -708,7 +696,7 @@ DPS:</textarea>
                             <div class="row">
                                 <div class="col-4">
                                     <div class="form-check">
-                                        <input type="radio" class="form-check-input opacity-75" id="psicologo" name="psicologo" disabled>
+                                        <input type="radio" class="form-check-input opacity-75" id="recipient-psicologo" name="psicologo" >
                                         <label class="form-check-label" for="cuidador">Psicólogo</label>
                                     </div>
                                 </div>
@@ -720,23 +708,7 @@ DPS:</textarea>
                         <div class="mb-3">
                             <label for="recipient-diagnostico" class="form-label fw-semibold">Diagnostico</label>
                             <br>
-                            <textarea id="diagnostico" class="form-control opacity-75" rows="10" name="diagnostico" disabled></textarea>
-                        </div>
-                        <br>
-                        <div class="mb-3">
-                            <label for="exampleFormControlTextarea1" class="form-label fw-semibold">Poster</label>
-                            <br>
-                            <textarea class="form-control opacity-75" id="post" rows="10" name="post" disabled>🩺Amor em Cuidar🩺
-Profissão: TEC/AUX ENFERMAGEM
-Coren: Ativo
-Sexo: 
-PAD: 12h/12h, DI - NI - DP - NP
-------------- 
-Paciente: Sexo, Idade
-Endereço:
-------------- 
-HD:
-DPS:</textarea>
+                            <textarea id="recipient-diagnostico" class="form-control opacity-75" rows="5" name="diagnostico" disabled></textarea>
                         </div>
                     </div>
                     <br>
@@ -744,32 +716,32 @@ DPS:</textarea>
                     <div class="row">
                         <div class="col-6">
                             <label for="recipient-cidade" class="col-form-label fw-semibold">Cidade</label>
-                            <input type="text" name="cidade" id="cidade" maxlength="50" class="form-control opacity-75" disabled>
+                            <input type="text" name="cidade" id="recipient-cidade" maxlength="50" class="form-control opacity-75" disabled> 
                         </div>
                         <div class="col-6">
                             <label for="recipient-rua" class="col-form-label fw-semibold">Rua</label>
-                            <input type="text" name="rua" id="rua" maxlength="50" class="form-control opacity-75" disabled>
+                            <input type="text" name="rua" id="recipient-rua" maxlength="50" class="form-control opacity-75" disabled>
                         </div>
                         <div class="col-2">
                             <label for="recipient-cep" class="col-form-label fw-semibold">Cep</label>
-                            <input type="text" name="cep" id="cep" maxlength="50" class="form-control opacity-75" onblur="pesquisacep(this.value)" disabled>
+                            <input type="text" name="cep" id="recipient-cep" maxlength="50" class="form-control opacity-75" onblur="pesquisacep(this.value)" disabled>
                         </div>
                         <div class="col-2">
                             <label for="recipient-uf" class="col-form-label fw-semibold">UF</label>
-                            <input type="text" name="uf" id="uf" maxlength="50" class="form-control opacity-75" disabled>
+                            <input type="text" name="uf" id="recipient-uf" maxlength="50" class="form-control opacity-75" disabled>
                         </div>
 
                         <div class="col-2">
                             <label for="recipient-bairro" class="col-form-label fw-semibold">Bairro</label>
-                            <input type="text" name="bairro" id="bairro" maxlength="50" class="form-control opacity-75" disabled>
+                            <input type="text" name="bairro" id="recipient-bairro" maxlength="50" class="form-control opacity-75" disabled>
                         </div>
                         <div class="col-2">
                             <label for="recipient-numero" class="col-form-label fw-semibold">Nº</label>
-                            <input type="text" name="numero" id="numero" maxlength="50" class="form-control opacity-75" disabled>
+                            <input type="text" name="numero" id="recipient-numero" maxlength="50" class="form-control opacity-75" disabled>
                         </div>
                         <div class="col-2">
                             <label for="recipient-regiao" class="col-form-label fw-semibold">Região</label>
-                            <input type="text" name="regiao" id="regiao" maxlength="50" class="form-control opacity-75" disabled>
+                            <input type="text" name="regiao" id="recipient-regiao" maxlength="50" class="form-control opacity-75" disabled>
                         </div>
                     </div>
                     <br>
@@ -777,7 +749,7 @@ DPS:</textarea>
                     <div class="row">
                         <div class="col-4">
                             <label for="recipient-criado_por" class="form-label fw-semibold ">Operador</label>
-                            <input type="text" name="criado_por" id="criado_por" maxlength="50" class="form-control opacity-75" value="<?php echo $_SESSION['usuarioNome'] ?>" disabled>
+                            <input type="text" name="criado_por" id="recipienriado_por" maxlength="50" class="form-control opacity-75" value="<?php echo $_SESSION['usuarioNome'] ?>" disabled>
                         </div>
                         <div class="col-4">
                             <label for="recipient-data_cadastro" class="form-label fw-semibold ">Data do cadastro</label>
@@ -785,7 +757,7 @@ DPS:</textarea>
                         </div>
                         <div class="col-4">
                             <label for="recipient-situacao" class="form-label fw-semibold">Situação</label>
-                            <select class="form-control form-select opacity-75" name="situacao" id="situacao" aria-label="form-select" disabled>
+                            <select class="form-control form-select opacity-75" name="situacao" id="recipient-situacao" aria-label="form-select" disabled>
                                 <option value="PENDENTE">Aguardando Liberação</option>
                                 <option value="ATIVO">Ativo</option>
                                 <option value="HOSPITALIZADO">Hospitalizado</option>
@@ -793,19 +765,20 @@ DPS:</textarea>
                             </select>
                         </div>
                     </div>
-                </form>
-            </div>
-            <div class="p-3 bg-secondary"></div>
+                    <div class="p-3 bg-secondary"></div>
             <div class="modal-footer bg-secondary">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <button type="submit" class="btn btn-primary" id="btn-cadastrar">Salvar</button>
+            </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
 <!-- -----------------------------------SCRIPT MODAL VISUALIZAR PACOEM----------------------------------------------------------------->
 <script type="text/javascript">
-    console.log("Visualizando");
-    $('#visulaizarPaciente').on('show.bs.modal', function(event) {
+    $('#visualizarPaciente').on('show.bs.modal', function(event) {
+        console.log("Visualizando");
         var button = $(event.relatedTarget) // Botão que acionou o modal
         var recipient = button.data('whatever')
         var recipientnome = button.data('whatevernome')
@@ -816,7 +789,6 @@ DPS:</textarea>
         var recipientdiagnostico = button.data('whateverdiagnostico')
         var recipientespecialidade = button.data('whateverespecialidade')
         var recipientPAD = button.data('whateverpad_autorizado')
-        var recipientpost = button.data('whateverpost')
         var recipientcep = button.data('whatevercep')
         var recipientuf = button.data('whateveruf')
         var recipientcidade = button.data('whatevercidade')
@@ -852,7 +824,6 @@ DPS:</textarea>
         modal.find('#recipient-diagnostico').val(recipientdiagnostico)
         modal.find('#recipient-especialidade').val(recipientespecialidade)
         modal.find('#recipient-pad_autorizado').val(recipientpad_autorizado)
-        modal.find('#recipient-post').val(recipientpost)
         modal.find('#recipient-cep').val(recipientcep)
         modal.find('#recipient-uf').val(recipientuf)
         modal.find('#recipient-cidade').val(recipientcidade)
@@ -884,9 +855,7 @@ DPS:</textarea>
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" aria-hidden="true"></button>
             </div>
             <div class="modal-body">
                 <form method="POST" action="processa_edit_paciente.php" enctype="multipart/form-data">
@@ -1011,10 +980,6 @@ DPS:</textarea>
                             <label for="recipient-pad_autorizado" class="col-form-label">PAD</label>
                             <input type="text" name="pad" id="recipient-pad_autorizado" maxlength="50" class="form-control">
                         </div>
-                        <div class="col-md-10 col-sm-12">
-                            <label for="recipient-post" class="col-form-label">Poster</label>
-                            <textarea class="form-control" name="post" id="recipient-post" rows="5"></textarea>
-                        </div>
                     </div>
                     <!--//informações sobre o endereço do paciente//-->
                     <div class="row">
@@ -1101,7 +1066,6 @@ DPS:</textarea>
         var recipientespecialidade = button.data('whateverespecialidade')
         var recipienttelefone_residencia = button.data('whatevertelefone_residencia')
         var recipientPAD = button.data('whateverpad_autorizado')
-        var recipientpost = button.data('whateverpost')
         var recipientcep = button.data('whatevercep')
         var recipientuf = button.data('whateveruf')
         var recipientcidade = button.data('whatevercidade')
@@ -1135,7 +1099,6 @@ DPS:</textarea>
         modal.find('#recipient-diagnostico').val(recipientdiagnostico)
         modal.find('#recipient-especialidade').val(recipientespecialidade)
         modal.find('#recipient-pad_autorizado').val(recipientPAD)
-        modal.find('#recipient-post').val(recipientpost)
         modal.find('#recipient-cep').val(recipientcep)
         modal.find('#recipient-uf').val(recipientuf)
         modal.find('#recipient-cidade').val(recipientcidade)
