@@ -16,33 +16,28 @@ if (isset($_SESSION['error'])) {
     echo $_SESSION['error'];
     unset($_SESSION['error']);
 }
-if (isset($_SESSION['success'])) {
-                                                                                                                                                                                                                                                               echo $_SESSION['success'];
+if (isset($_SESSION['success'])) {                                                                                                                                                                                                                                           echo $_SESSION['success'];
     unset($_SESSION['success']);
 }
 ?>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-4 bg-warning justify-content-between p-3">
-            <b><H4><bem-vindo>Bem-vindo!</bem-vindo!></H4></b>
-        </div>
-        <div class="col-md-6 bg-warning justify-content-between p-3">
-            <div class="form-label-group">
+<div class="p-2 bg-dark shadow row g-2 bg-secondary"></div>
+<div class="p-1 bg-warning"></div>
 
-                <input type="text" name="pesquisa_paciente" id="pesquisa_paciente" class="form-control" placeholder="BUSCAR" required autofocus>
-
-            </div>
-        </div>
-        <div class="col-md-2 bg-warning  justify-content-between p-3 d-flex">
-            <button type="button" class="btn btn-sm btn-dark " data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#cadPaciente">NOVO CADASTRO</button>
-        </div>
+<div class="container-flex text-center p-3 d-flex justify-content-center bg-secondary">
+    <div class="containder-flex text-center w-50 hstack bg-secondary gap-3">
+        <input class="form-control fw-semibold required opacity-75 me-2 h-40 p-4 shadow bg-body-tertiary rounded" type="search" name="pesquisa_paciente" placeholder="Buscar" aria-label="Buscar" required="autofocus">
+        <!-- <button type="button" class="btn btn-primary btn-lg h-100 shadow rounded" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#pesquisa_paciente">Buscar</button> -->
+        <button type="button" class="btn btn-primary btn-lg h-100 shadow rounded" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#cadPacientes">Cadastrar</button>
     </div>
 </div>
-
-<table class="table table-bordered table-hover table-sm table-responsive-xl resultado_paciente">
+<div class="container-flex p-3 d-flex justify-content-center bg-secondary">
+    <div class="fw-semibold">
+        <div class="row">
+            <div class="form-label-group">
+                <div class="table-responsive">
+                    <table class="resultado_colaborador table table-striped table-hover table-bordered table-sm aling-middle table-secondary rounded shadow">
     <thead>
         <tr class="bg-dark text text-white">
-
             <th scope="col">CÓD</th>
             <th scope="col">NOME</th>
             <th scope="col">ESPECIALIDADE</th>
@@ -403,87 +398,81 @@ if (isset($_SESSION['success'])) {
     </div>
 </div>
 <!-- ==================================================MODAL CADASTRO DE COLABORADOR ==================================== -->
-<div class="modal fade" id="cadPaciente" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+<div class="modal fade" id="cadPacientes" tabindex="-1" aria-labelledby="exempleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl text-light">
         <div class="modal-content">
-            <div class="modal-header ">
-                <h5 class="modal-title" id="exampleModalLabel">CADASTRO DE COLABORADOR</h5>
+            <div class="modal-header bg-secondary">
+                <h5 class="modal-title fw-bolder" id="exempleModalLabel">Cadastrar Paciente</h5>
 
-
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-
-
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" aria-hidden="true"></button>
             </div>
 
-
-            <!-- ALERTA PARA ERRO DE PREENCHIMENTO DE FORMULARIO -->
             <div class="alert alert-danger d-none fade show m-3" role="alert">
-                <strong>ERRO!</strong> - <strong>Preencha o campo <span id="campo-erro"></span></strong>!
+                <strong>ERRO!</strong> - <strong> Preencha todos os campos <span id="campo-erro"></span></strong>!
                 <span id="msg"></span>
             </div>
 
-            <div class="modal-body">
+            <div class="modal-body bg-secondary" onpaste="return false">
+                <br>
+                <h5 class="text-center p-2 fw-bolder">Dados Pessoais</h5>
                 <form method="POST" id="insert_form">
-
                     <div class="row">
-                        <div class="col-md-6 col-sm-12">
-                            <label for="recipient-name" class="col-form-label">Nome</label>
-                            <input type="text" class="form-control" name="nome" id="name">
+                        <div class="col-12">
+                            <label for="recipient-name" class="col-form-label fw-semibold">Nome Completo</label>
+                            <input type="text" class="form-control fw-semibold required opacity-75" name="nome" id="name">
                         </div>
-                        <div class="col-md-6 col-sm-12">
-                            <label for="recipient-sexo" class="col-form-label">Sexo</label>
-                            <select class="form-control form-select-lg select2" name="sexo" id="sexo" aria-label=".form-select-lg example">
+                        <div class="col-4">
+                            <label for="recipient-sexo" class="col-form-label fw-semibold">Sexo</label>
+                            <select class="form-control fw-semibold required opacity-75 form-select-lg select2" name="sexo" id="sexo" aria-label=".form-select-lg example">
                                 <option value="MASCULINO">MASCULINO</option>
                                 <option value="FEMININO">FEMININO</option>
                                 <option value="OUTRO">OUTRO</option>
                             </select>
                         </div>
-                        <div class="col-md-6 col-sm-12">
-                            <label for="recipient-nascimento" class="col-form-label">Data de Nascimento</label>
-                            <input type="text" class="form-control" name="nascimento" id="nascimento">
+                        <div class="col-4">
+                            <label for="recipient-nascimento" class="col-form-label fw-semibold">Data de Nascimento</label>
+                            <input type="text" class="form-control fw-semibold required opacity-75" name="nascimento" id="nascimento">
                         </div>
-                        <div class="col-md-10 col-sm-12">
-                            <label for="recipient-telefone_residencia" class="col-form-label">Contato</label>
-                            <input type="text" max="15" class="form-control" name="telefone" id="telefone_residencia" onkeyup="mask(this)">
+                        <div class="col-4">
+                            <label for="recipient-telefone_residencia" class="col-form-label fw-semibold">Contato</label>
+                            <input type="text" max="15" class="form-control fw-semibold required opacity-75" name="telefone" id="telefone_residencia" onkeyup="mask(this)">
                         </div>
-                        <div class="col-md-10 col-sm-12">
-                            <label for="recipient-email" class="col-form-label">E-MAIL</label>
-                            <input type="email" max="15" class="form-control" name="email" id="email" >
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 col-sm-12">
-                            <label for="recipient-rg" class="col-form-label">RG</label>
-                            <input type="text" class="form-control" name="rg" id="rg">
-                        </div>
-                        <div class="col-md-6 col-sm-12">
-                            <label for="recipient-org_emissor" class="col-form-label">Orgão Emissor</label>
-                            <input type="text" class="form-control" name="org_emissor" id="org_emissor">
-                        </div>
-                        <div class="col-md-6 col-sm-12">
-                            <label for="recipient-expedicao" class="col-form-label">Data de Expedição</label>
-                            <input type="date" class="form-control" name="expedicao" id="expedicao">
+                        <div class="col-4">
+                            <label for="recipient-email" class="col-form-label fw-semibold">E-mail</label>
+                            <input type="email" max="15" class="form-control fw-semibold required opacity-75" name="email" id="email" >
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 col-sm-12">
-                            <label for="recipient-cpf" class="col-form-label">CPF</label>
-                            <input type="text" class="form-control" name="cpf" id="cpf">
+                            <label for="recipient-rg" class="col-form-label fw-semibold">RG</label>
+                            <input type="text" class="form-control fw-semibold required opacity-75" name="rg" id="rg">
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <label for="recipient-org_emissor" class="col-form-label fw-semibold">Orgão Emissor</label>
+                            <input type="text" class="form-control fw-semibold required opacity-75" name="org_emissor" id="org_emissor">
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <label for="recipient-expedicao" class="col-form-label fw-semibold">Data de Expedição</label>
+                            <input type="date" class="form-control fw-semibold required opacity-75" name="expedicao" id="expedicao">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <label for="recipient-cpf" class="col-form-label fw-semibold">CPF</label>
+                            <input type="text" class="form-control fw-semibold required opacity-75" name="cpf" id="cpf">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 col-sm-12 mb-4">
-                            <label for="recipient-nome_mae" class="col-form-label">Nome da Mãe</label>
-                            <input type="text" class="form-control" name="nome_mae" id="nome_mae">
+                            <label for="recipient-nome_mae" class="col-form-label fw-semibold">Nome da Mãe</label>
+                            <input type="text" class="form-control fw-semibold required opacity-75" name="nome_mae" id="nome_mae">
                         </div>
                     </div>
                    <!-- //quadro do paciente// -->
                     <div class="row">
                         <div class="col-md-10 col-sm-12">
-                            <label for="recipient-especialidade" class="col-form-label">Especialidade</label>
-                            <select class="form-control form-select-lg select2" name="especialidade" id="especialidade" aria-label=".form-select-lg example">
+                            <label for="recipient-especialidade" class="col-form-label fw-semibold">Especialidade</label>
+                            <select class="form-control fw-semibold required opacity-75 form-select-lg select2" name="especialidade" id="especialidade" aria-label=".form-select-lg example">
                                 <option value="Terapeuta Ocupacional">Terapeuta Ocupacional</option>
                                 <option value="Psicólogo">Psicólogo</option>
                                 <option value="Nutricionista">Nutricionista</option>
@@ -497,82 +486,82 @@ if (isset($_SESSION['success'])) {
                             </select>
                         </div>
                         <div class="col-md-6 col-sm-12 mb-4">
-                            <label for="recipient-registro" class="col-form-label">Registro Profisisonal</label>
-                            <input type="text" class="form-control" name="registro" id="registro">
+                            <label for="recipient-registro" class="col-form-label fw-semibold">Registro Profisisonal</label>
+                            <input type="text" class="form-control fw-semibold required opacity-75" name="registro" id="registro">
                         </div>
                     </div>
                         
                     <!--//endereço paciente// -->
                     <div class="row">
                     <div class="col-md-5 col-sm-12">
-                            <label for="recipient-cep" class="col-form-label">Cep</label>
-                            <input type="text" name="cep" id="cep" maxlength="50" class="form-control" onblur="pesquisacep(this.value)">
+                            <label for="recipient-cep" class="col-form-label fw-semibold">Cep</label>
+                            <input type="text" name="cep" id="cep" maxlength="50" class="form-control fw-semibold required opacity-75" onblur="pesquisacep(this.value)">
                         </div>
                         <div class="col-md-2 col-sm-12">
-                            <label for="recipient-uf" class="col-form-label">UF</label> 
-                            <input type="text" name="uf" id="uf" maxlength="50" class="form-control">
+                            <label for="recipient-uf" class="col-form-label fw-semibold">UF</label> 
+                            <input type="text" name="uf" id="uf" maxlength="50" class="form-control fw-semibold required opacity-75">
                         </div>
                         <div class="col-md-5 col-sm-12">
-                            <label for="recipient-cidade" class="col-form-label">Cidade</label>
-                            <input type="text" name="cidade" id="cidade" maxlength="50" class="form-control -10">
+                            <label for="recipient-cidade" class="col-form-label fw-semibold">Cidade</label>
+                            <input type="text" name="cidade" id="cidade" maxlength="50" class="form-control fw-semibold required opacity-75 -10">
                         </div>
                         <div class="col-md-2 col-sm-12">
-                            <label for="recipient-bairro" class="col-form-label">Bairro</label> 
-                            <input type="text" name="bairro" id="bairro" maxlength="50" class="form-control">
+                            <label for="recipient-bairro" class="col-form-label fw-semibold">Bairro</label> 
+                            <input type="text" name="bairro" id="bairro" maxlength="50" class="form-control fw-semibold required opacity-75">
                         </div>
                         <div class="col-md-6 col-sm-12">
-                            <label for="recipient-rua" class="col-form-label">Rua</label> 
-                            <input type="text" name="rua" id="rua" maxlength="50" class="form-control">
+                            <label for="recipient-rua" class="col-form-label fw-semibold">Rua</label> 
+                            <input type="text" name="rua" id="rua" maxlength="50" class="form-control fw-semibold required opacity-75">
                         </div>
                         <div class="col-md-2 col-sm-12">
-                            <label for="recipient-numero" class="col-form-label">Nº</label> 
-                            <input type="text" name="numero" id="numero" maxlength="50" class="form-control">
+                            <label for="recipient-numero" class="col-form-label fw-semibold">Nº</label> 
+                            <input type="text" name="numero" id="numero" maxlength="50" class="form-control fw-semibold required opacity-75">
                         </div>
                     </div>
 <!-----              DADOS BANCARIOS                 -->
                     <div class="row">
                         <div class="col-md-10 col-sm-12">
-                            <label for="recipient-banco" class="col-form-label">Banco</label>
-                            <input type="text" max="15" class="form-control" name="banco" id="banco">
+                            <label for="recipient-banco" class="col-form-label fw-semibold">Banco</label>
+                            <input type="text" max="15" class="form-control fw-semibold required opacity-75" name="banco" id="banco">
                         </div>
                         <div class="col-md-10 col-sm-12">
-                            <label for="recipient-tipo_conta" class="col-form-label">Tipo de Conta</label>
-                            <select class="form-control form-select-lg select2" name="tipo_conta" id="tipo_conta" aria-label=".form-select-lg example">
+                            <label for="recipient-tipo_conta" class="col-form-label fw-semibold">Tipo de Conta</label>
+                            <select class="form-control fw-semibold required opacity-75 form-select-lg select2" name="tipo_conta" id="tipo_conta" aria-label=".form-select-lg example">
                                 <option value="CORRENTE">Corrente</option>
                                 <option value="POUPANÇA">Poupança</option>
                                 <option value="OUTRO">Outro</option>
                             </select>
                         </div>
                         <div class="col-md-10 col-sm-12">
-                            <label for="recipient-conta" class="col-form-label">Conta</label>
-                            <input type="text" max="15" class="form-control" name="conta" id="conta">
+                            <label for="recipient-conta" class="col-form-label fw-semibold">Conta</label>
+                            <input type="text" max="15" class="form-control fw-semibold required opacity-75" name="conta" id="conta">
                         </div>
                         <div class="col-md-10 col-sm-12">
-                            <label for="recipient-agencia" class="col-form-label">Agencia</label>
-                            <input type="text" max="15" class="form-control" name="agencia" id="agencia">
+                            <label for="recipient-agencia" class="col-form-label fw-semibold">Agencia</label>
+                            <input type="text" max="15" class="form-control fw-semibold required opacity-75" name="agencia" id="agencia">
                         </div>
                     </div>
                     <div class="row">
                     <div class="col-md-10 col-sm-12 mb-4">
-                            <label for="recipient-pix" class="col-form-label">PIX</label>
-                            <input type="text" max="15" class="form-control" name="pix" id="pix">
+                            <label for="recipient-pix" class="col-form-label fw-semibold">PIX</label>
+                            <input type="text" max="15" class="form-control fw-semibold required opacity-75" name="pix" id="pix">
                         </div>
                     </div>
 
 
                     <div class="row">
                         <div class="col-md-4 col-sm-12">
-                            <label for="recipient-criado_por" class="col-form-label cli">Operador</label>
-                            <input type="text" name="criado_por" id="criado_por" maxlength="50" class="form-control" value="<?php echo $_SESSION['usuarioNome'] ?>" disabled>
+                            <label for="recipient-criado_por" class="col-form-label fw-semibold cli">Operador</label>
+                            <input type="text" name="criado_por" id="criado_por" maxlength="50" class="form-control fw-semibold required opacity-75" value="<?php echo $_SESSION['usuarioNome'] ?>" disabled>
                         </div>
                         <div class="col-md-4 col-sm-12">
-                            <label for="recipient-data_cadastro" class="col-form-label">Data do cadastro</label>
-                            <input type="text" class="form-control" disabled value="<?php echo date('d/m/Y - H:i:s') ?>">
+                            <label for="recipient-data_cadastro" class="col-form-label fw-semibold">Data do cadastro</label>
+                            <input type="text" class="form-control fw-semibold required opacity-75" disabled value="<?php echo date('d/m/Y - H:i:s') ?>">
                         </div>
                         <div class="col-md-4 col-sm-12">
 
-                            <label for="recipient-situacao" class="col-form-label">Situação</label>
-                            <select class="form-control form-select-lg mb-5 select2" name="situacao" id="situacao" aria-label=".form-select-lg example">
+                            <label for="recipient-situacao" class="col-form-label fw-semibold">Situação</label>
+                            <select class="form-control fw-semibold required opacity-75 form-select-lg mb-5 select2" name="situacao" id="situacao" aria-label=".form-select-lg example">
                                 <option value="PENDENTE">Aguardando Liberação</option>
                                 <option value="ATIVO">Ativo</option>
                                 <option value="INATIVO">Inativo</option>
@@ -612,134 +601,134 @@ if (isset($_SESSION['success'])) {
                 <form >
                     <div class="row">
                         <div class="col-md-6 col-sm-12">
-                            <label for="recipient-name" class="col-form-label">Nome</label>
-                            <input disabled type="text" class="form-control" name="nome" id="recipient-nome" >
+                            <label for="recipient-name" class="col-form-label fw-semibold">Nome</label>
+                            <input disabled type="text" class="form-control fw-semibold required opacity-75" name="nome" id="recipient-nome" >
                         </div>
                         <div class="col-md-6 col-sm-12">
-                            <label for="recipient-sexo" class="col-form-label">Sexo</label>
-                            <input disabled type="text" class="form-control" name="sexo" id="recipient-sexo">
+                            <label for="recipient-sexo" class="col-form-label fw-semibold">Sexo</label>
+                            <input disabled type="text" class="form-control fw-semibold required opacity-75" name="sexo" id="recipient-sexo">
 
                         </div>
                         <div class="col-md-6 col-sm-12">
-                            <label for="recipient-nascimento" class="col-form-label">Data de Nascimento</label>
-                            <input disabled type="text" class="form-control" name="nascimento" id="recipient-nascimento">
+                            <label for="recipient-nascimento" class="col-form-label fw-semibold">Data de Nascimento</label>
+                            <input disabled type="text" class="form-control fw-semibold required opacity-75" name="nascimento" id="recipient-nascimento">
                         </div>
                         <div class="col-md-10 col-sm-12">
-                            <label for="recipient-telefone_residencia" class="col-form-label">Contato</label>
-                            <input disabled type="text" max="15" class="form-control" name="telefone" id="recipient-telefone" onkeyup="mask(this)">
+                            <label for="recipient-telefone_residencia" class="col-form-label fw-semibold">Contato</label>
+                            <input disabled type="text" max="15" class="form-control fw-semibold required opacity-75" name="telefone" id="recipient-telefone" onkeyup="mask(this)">
                         </div>
                         <div class="col-md-10 col-sm-12">
-                            <label for="recipient-email" class="col-form-label">E-MAIL</label>
-                            <input disabled type="email" max="15" class="form-control" name="email" id="recipient-email" >
+                            <label for="recipient-email" class="col-form-label fw-semibold">E-MAIL</label>
+                            <input disabled type="email" max="15" class="form-control fw-semibold required opacity-75" name="email" id="recipient-email" >
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 col-sm-12">
-                            <label for="recipient-rg" class="col-form-label">RG</label>
-                            <input disabled type="text" class="form-control" name="rg" id="recipient-rg">
+                            <label for="recipient-rg" class="col-form-label fw-semibold">RG</label>
+                            <input disabled type="text" class="form-control fw-semibold required opacity-75" name="rg" id="recipient-rg">
                         </div>
                         <div class="col-md-6 col-sm-12">
-                            <label for="recipient-orgao_emissor" class="col-form-label">Orgão Emissor</label>
-                            <input disabled type="text" class="form-control" name="orgao_emissor" id="recipient-org_emissor">
+                            <label for="recipient-orgao_emissor" class="col-form-label fw-semibold">Orgão Emissor</label>
+                            <input disabled type="text" class="form-control fw-semibold required opacity-75" name="orgao_emissor" id="recipient-org_emissor">
                         </div>
                         <div class="col-md-6 col-sm-12">
-                            <label for="recipient-expedicao" class="col-form-label">Data de Expedição</label>
-                            <input disabled type="date" class="form-control" name="expedicao" id="recipient-expedicao">
+                            <label for="recipient-expedicao" class="col-form-label fw-semibold">Data de Expedição</label>
+                            <input disabled type="date" class="form-control fw-semibold required opacity-75" name="expedicao" id="recipient-expedicao">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 col-sm-12">
-                            <label for="recipient-cpf" class="col-form-label">CPF</label>
-                            <input disabled type="text" class="form-control" name="cpf" id="recipient-cpf">
+                            <label for="recipient-cpf" class="col-form-label fw-semibold">CPF</label>
+                            <input disabled type="text" class="form-control fw-semibold required opacity-75" name="cpf" id="recipient-cpf">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 col-sm-12 mb-4">
-                            <label for="recipient-nome_mae" class="col-form-label">Nome da Mãe</label>
-                            <input disabled type="text" class="form-control" name="nome_mae" id="recipient-nome_mae">
+                            <label for="recipient-nome_mae" class="col-form-label fw-semibold">Nome da Mãe</label>
+                            <input disabled type="text" class="form-control fw-semibold required opacity-75" name="nome_mae" id="recipient-nome_mae">
                         </div>
                     </div>
                     <!-- //quadro do paciente// -->
                     <div class="row">
                         <div class="col-md-10 col-sm-12">
-                            <label for="recipient-especialidade" class="col-form-label">Especialidade</label>
-                            <input disabled type="text" class="form-control" name="especialidade" id="recipient-especialidade">
+                            <label for="recipient-especialidade" class="col-form-label fw-semibold">Especialidade</label>
+                            <input disabled type="text" class="form-control fw-semibold required opacity-75" name="especialidade" id="recipient-especialidade">
 
                         </div>
                         <div class="col-md-6 col-sm-12 mb-4">
-                            <label for="recipient-registro" class="col-form-label">Registro Profisisonal</label>
-                            <input disabled type="text" class="form-control" name="registro" id="recipient-registro">
+                            <label for="recipient-registro" class="col-form-label fw-semibold">Registro Profisisonal</label>
+                            <input disabled type="text" class="form-control fw-semibold required opacity-75" name="registro" id="recipient-registro">
                         </div>
                     </div>
                         
                     <!--//endereço paciente// -->
                     <div class="row">
                     <div class="col-md-5 col-sm-12">
-                            <label for="recipient-cep" class="col-form-label">Cep</label>
-                            <input disabled type="text" name="cep" id="recipient-cep" maxlength="50" class="form-control" onblur="pesquisacep(this.value)">
+                            <label for="recipient-cep" class="col-form-label fw-semibold">Cep</label>
+                            <input disabled type="text" name="cep" id="recipient-cep" maxlength="50" class="form-control fw-semibold required opacity-75" onblur="pesquisacep(this.value)">
                         </div>
                         <div class="col-md-2 col-sm-12">
-                            <label for="recipient-uf" class="col-form-label">UF</label> 
-                            <input disabled type="text" name="uf" id="recipient-uf" maxlength="50" class="form-control">
+                            <label for="recipient-uf" class="col-form-label fw-semibold">UF</label> 
+                            <input disabled type="text" name="uf" id="recipient-uf" maxlength="50" class="form-control fw-semibold required opacity-75">
                         </div>
                         <div class="col-md-5 col-sm-12">
-                            <label for="recipient-cidade" class="col-form-label">Cidade</label>
-                            <input disabled type="text" name="cidade" id="recipient-cidade" maxlength="50" class="form-control -10">
+                            <label for="recipient-cidade" class="col-form-label fw-semibold">Cidade</label>
+                            <input disabled type="text" name="cidade" id="recipient-cidade" maxlength="50" class="form-control fw-semibold required opacity-75 -10">
                         </div>
                         <div class="col-md-2 col-sm-12">
-                            <label for="recipient-bairro" class="col-form-label">Bairro</label> 
-                            <input disabled type="text" name="bairro" id="recipient-bairro" maxlength="50" class="form-control">
+                            <label for="recipient-bairro" class="col-form-label fw-semibold">Bairro</label> 
+                            <input disabled type="text" name="bairro" id="recipient-bairro" maxlength="50" class="form-control fw-semibold required opacity-75">
                         </div>
                         <div class="col-md-6 col-sm-12">
-                            <label for="recipient-rua" class="col-form-label">Rua</label> 
-                            <input disabled type="text" name="rua" id="recipient-rua" maxlength="50" class="form-control">
+                            <label for="recipient-rua" class="col-form-label fw-semibold">Rua</label> 
+                            <input disabled type="text" name="rua" id="recipient-rua" maxlength="50" class="form-control fw-semibold required opacity-75">
                         </div>
                         <div class="col-md-2 col-sm-12">
-                            <label for="recipient-numero" class="col-form-label">Nº</label> 
-                            <input disabled type="text" name="numero" id="recipient-numero" maxlength="50" class="form-control">
+                            <label for="recipient-numero" class="col-form-label fw-semibold">Nº</label> 
+                            <input disabled type="text" name="numero" id="recipient-numero" maxlength="50" class="form-control fw-semibold required opacity-75">
                         </div>
                     </div>
                     <!-----              DADOS BANCARIOS                 -->
                     <div class="row">
                         <div class="col-md-10 col-sm-12">
-                            <label for="recipient-banco" class="col-form-label">Banco</label>
-                            <input disabled type="text" max="15" class="form-control" name="banco" id="recipient-banco">
+                            <label for="recipient-banco" class="col-form-label fw-semibold">Banco</label>
+                            <input disabled type="text" max="15" class="form-control fw-semibold required opacity-75" name="banco" id="recipient-banco">
                         </div>
                         <div class="col-md-10 col-sm-12">
-                            <label for="recipient-tipo_conta" class="col-form-label">Tipo de Conta</label>
-                            <input disabled type="text" max="15" class="form-control" name="tipo_conta" id="recipient-tipo_conta">
+                            <label for="recipient-tipo_conta" class="col-form-label fw-semibold">Tipo de Conta</label>
+                            <input disabled type="text" max="15" class="form-control fw-semibold required opacity-75" name="tipo_conta" id="recipient-tipo_conta">
 
                         </div>
                         <div class="col-md-10 col-sm-12">
-                            <label for="recipient-conta" class="col-form-label">Conta</label>
-                            <input disabled type="text" max="15" class="form-control" name="conta" id="recipient-conta">
+                            <label for="recipient-conta" class="col-form-label fw-semibold">Conta</label>
+                            <input disabled type="text" max="15" class="form-control fw-semibold required opacity-75" name="conta" id="recipient-conta">
                         </div>
                         <div class="col-md-10 col-sm-12">
-                            <label for="recipient-agencia" class="col-form-label">Agencia</label>
-                            <input disabled type="text" max="15" class="form-control" name="agencia" id="recipient-agencia">
+                            <label for="recipient-agencia" class="col-form-label fw-semibold">Agencia</label>
+                            <input disabled type="text" max="15" class="form-control fw-semibold required opacity-75" name="agencia" id="recipient-agencia">
                         </div>
                     </div>
                     <div class="row">
                     <div class="col-md-10 col-sm-12 mb-4">
-                            <label for="recipient-pix" class="col-form-label">PIX</label>
-                            <input disabled type="text" max="15" class="form-control" name="pix" id="recipient-pix">
+                            <label for="recipient-pix" class="col-form-label fw-semibold">PIX</label>
+                            <input disabled type="text" max="15" class="form-control fw-semibold required opacity-75" name="pix" id="recipient-pix">
                         </div>
                     </div>
 
 
                     <div class="row">
                         <div class="col-md-4 col-sm-12">
-                            <label for="recipient-criado_por" class="col-form-label cli">Operador</label>
-                            <input disabled type="text" name="criado_por" id="recipient-criado_por" maxlength="50" class="form-control" >
+                            <label for="recipient-criado_por" class="col-form-label fw-semibold cli">Operador</label>
+                            <input disabled type="text" name="criado_por" id="recipient-criado_por" maxlength="50" class="form-control fw-semibold required opacity-75" >
                         </div>
                         <div class="col-md-4 col-sm-12">
-                            <label for="recipient-data_cadastro" class="col-form-label">Data do cadastro</label>
-                            <input disabled type="text" class="form-control" id="recipient-data_cadastro">
+                            <label for="recipient-data_cadastro" class="col-form-label fw-semibold">Data do cadastro</label>
+                            <input disabled type="text" class="form-control fw-semibold required opacity-75" id="recipient-data_cadastro">
                         </div>
                         <div class="col-md-4 col-sm-12">
 
-                            <label for="recipient-situacao" class="col-form-label">Situação</label>
-                            <input disabled type="text" class="form-control" id='recipient-situacao'>
+                            <label for="recipient-situacao" class="col-form-label fw-semibold">Situação</label>
+                            <input disabled type="text" class="form-control fw-semibold required opacity-75" id='recipient-situacao'>
                         </div>
                     </div>
 
@@ -847,89 +836,89 @@ if (isset($_SESSION['success'])) {
 
                     <div class="row">
                         <div class="col-md-6 col-sm-12">
-                            <label for="recipient-name" class="col-form-label">Nome</label>
-                            <input type="text" class="form-control" id="recipient-name" name="nome">
+                            <label for="recipient-name" class="col-form-label fw-semibold">Nome</label>
+                            <input type="text" class="form-control fw-semibold required opacity-75" id="recipient-name" name="nome">
                         </div>
                         <div class="col-md-6 col-sm-12">
-                            <label for="recipient-email" class="col-form-label">E-mail</label>
-                            <input type="email" class="form-control" id="recipient-email" name="email">
+                            <label for="recipient-email" class="col-form-label fw-semibold">E-mail</label>
+                            <input type="email" class="form-control fw-semibold required opacity-75" id="recipient-email" name="email">
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-10 col-sm-12">
-                            <label for="recipient-rua" class="col-form-label">Rua</label>
-                            <input type="text" class="form-control" id="recipient-rua" name="rua">
+                            <label for="recipient-rua" class="col-form-label fw-semibold">Rua</label>
+                            <input type="text" class="form-control fw-semibold required opacity-75" id="recipient-rua" name="rua">
                         </div>
                         <div class="col-md-2 col-sm-12">
-                            <label for="recipient-numero" class="col-form-label">Nº</label>
-                            <input type="text" name="numero" id="recipient-numero" class="form-control -10">
+                            <label for="recipient-numero" class="col-form-label fw-semibold">Nº</label>
+                            <input type="text" name="numero" id="recipient-numero" class="form-control fw-semibold required opacity-75 -10">
                         </div>
 
                     </div>
 
                     <div class="row">
                         <div class="col-md-5 col-sm-12">
-                            <label for="recipient-bairro" class="col-form-label">Bairro</label>
-                            <input type="text" name="bairro" id="recipient-bairro" maxlength="50" class="form-control">
+                            <label for="recipient-bairro" class="col-form-label fw-semibold">Bairro</label>
+                            <input type="text" name="bairro" id="recipient-bairro" maxlength="50" class="form-control fw-semibold required opacity-75">
                         </div>
                         <div class="col-md-5 col-sm-12">
-                            <label for="recipient-cidade" class="col-form-label">cidade</label>
-                            <input type="text" name="cidade" id="recipient-cidade" maxlength="50" class="form-control -10">
+                            <label for="recipient-cidade" class="col-form-label fw-semibold">cidade</label>
+                            <input type="text" name="cidade" id="recipient-cidade" maxlength="50" class="form-control fw-semibold required opacity-75 -10">
                         </div>
                         <div class="col-md-2 col-sm-12">
-                            <label for="recipient-cep" class="col-form-label">Cep</label>
-                            <input type="text" name="cep" id="recipient-cep" maxlength="50" class="form-control">
+                            <label for="recipient-cep" class="col-form-label fw-semibold">Cep</label>
+                            <input type="text" name="cep" id="recipient-cep" maxlength="50" class="form-control fw-semibold required opacity-75">
                         </div>
 
                     </div>
 
                     <div class="row">
                         <div class="col-md-4 col-sm-12">
-                            <label for="recipient-cidade" class="col-form-label">Cidade</label>
-                            <input type="text" name="cidade" id="recipient-cidade" maxlength="50" class="form-control">
+                            <label for="recipient-cidade" class="col-form-label fw-semibold">Cidade</label>
+                            <input type="text" name="cidade" id="recipient-cidade" maxlength="50" class="form-control fw-semibold required opacity-75">
                         </div>
                         <div class="col-md-2 col-sm-12">
-                            <label for="recipient-uf" class="col-form-label">UF</label>
-                            <input type="text" name="uf" id="recipient-uf" maxlength="50" class="form-control -10">
+                            <label for="recipient-uf" class="col-form-label fw-semibold">UF</label>
+                            <input type="text" name="uf" id="recipient-uf" maxlength="50" class="form-control fw-semibold required opacity-75 -10">
                         </div>
                         <div class="col-md-3 col-sm-12">
-                            <label for="recipient-telefone" class="col-form-label">Telefone</label>
-                            <input type="text" name="telefone" id="recipient-telefone" onkeypress="mask(this, telefone);" onblur="mask(this, telefone);" class="form-control -10">
+                            <label for="recipient-telefone" class="col-form-label fw-semibold">Telefone</label>
+                            <input type="text" name="telefone" id="recipient-telefone" onkeypress="mask(this, telefone);" onblur="mask(this, telefone);" class="form-control fw-semibold required opacity-75 -10">
                         </div>
                         <div class="col-md-3 col-sm-12">
-                            <label for="recipient-celular" class="col-form-label">Celular</label>
-                            <input type="text" name="celular" id="recipient-celular" maxlength="50" onkeypress="mask(this, celular);" onblur="mask(this, celular);" class="form-control -10">
+                            <label for="recipient-celular" class="col-form-label fw-semibold">Celular</label>
+                            <input type="text" name="celular" id="recipient-celular" maxlength="50" onkeypress="mask(this, celular);" onblur="mask(this, celular);" class="form-control fw-semibold required opacity-75 -10">
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-4 col-sm-12">
-                            <label for="recipient-cpf" class="col-form-label">CPF</label>
-                            <input type="text" name="cpf" id="recipient-cpf" maxlength="50" class="form-control">
+                            <label for="recipient-cpf" class="col-form-label fw-semibold">CPF</label>
+                            <input type="text" name="cpf" id="recipient-cpf" maxlength="50" class="form-control fw-semibold required opacity-75">
                         </div>
                         <div class="col-md-4 col-sm-12">
-                            <label for="recipient-rg" class="col-form-label">RG</label>
-                            <input type="text" name="rg" id="recipient-rg" maxlength="50" class="form-control -10">
+                            <label for="recipient-rg" class="col-form-label fw-semibold">RG</label>
+                            <input type="text" name="rg" id="recipient-rg" maxlength="50" class="form-control fw-semibold required opacity-75 -10">
                         </div>
                         <div class="col-md-4 col-sm-12">
-                            <label for="recipient-nascimento" class="col-form-label">Nascimento</label>
-                            <input type="text" name="nascimento" id="recipient-nascimento" class="form-control -10">
+                            <label for="recipient-nascimento" class="col-form-label fw-semibold">Nascimento</label>
+                            <input type="text" name="nascimento" id="recipient-nascimento" class="form-control fw-semibold required opacity-75 -10">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4 col-sm-12">
-                            <label for="recipient-operador" class="col-form-label cli">Cadastrado por</label>
-                            <input type="text" name="operador" id="recipient-operador" maxlength="50" class="form-control" disabled>
+                            <label for="recipient-operador" class="col-form-label fw-semibold cli">Cadastrado por</label>
+                            <input type="text" name="operador" id="recipient-operador" maxlength="50" class="form-control fw-semibold required opacity-75" disabled>
                         </div>
                         <div class="col-md-4 col-sm-12">
-                            <label for="recipient-dataCadastro" class="col-form-label">Data do cadastro</label>
-                            <input type="text" class="form-control" id="recipient-dataCadastro" disabled>
+                            <label for="recipient-dataCadastro" class="col-form-label fw-semibold">Data do cadastro</label>
+                            <input type="text" class="form-control fw-semibold required opacity-75" id="recipient-dataCadastro" disabled>
                         </div>
                         <div class="col-md-4 col-sm-12">
 
-                            <label for="recipient-situacao" class="col-form-label">Situação</label>
-                            <select class="form-control form-select-lg mb-5 select2" name="situacao" id="recipient-situacao" aria-label=".form-select-lg example">
+                            <label for="recipient-situacao" class="col-form-label fw-semibold">Situação</label>
+                            <select class="form-control fw-semibold required opacity-75 form-select-lg mb-5 select2" name="situacao" id="recipient-situacao" aria-label=".form-select-lg example">
                                 <option value="Pendente">Pendente</option>
                                 <option value="Ativo">Ativo</option>
                                 <option value="Inativo">Inativo</option>
@@ -943,18 +932,18 @@ if (isset($_SESSION['success'])) {
 
                     <div class="row">
                         <div class="col-md-4 col-sm-12">
-                            <label for="recipient-operador" class="col-form-label cli">Alterado por</label>
-                            <input type="text" name="alterado_por" id="recipient-alterado_por" maxlength="50" class="form-control" disabled value="<?php echo $_SESSION['usuarioNome'] ?>">
+                            <label for="recipient-operador" class="col-form-label fw-semibold cli">Alterado por</label>
+                            <input type="text" name="alterado_por" id="recipient-alterado_por" maxlength="50" class="form-control fw-semibold required opacity-75" disabled value="<?php echo $_SESSION['usuarioNome'] ?>">
                         </div>
                         <div class="col-md-4 col-sm-12">
-                            <label for="recipient-dataCadastro" class="col-form-label">Última Alteração</label>
-                            <input type="text" class="form-control" name="ultima_alteracao" id="recipientultima_alteracao" value="<?php echo date('d/m/Y - H:i:s') ?>" disabled>
+                            <label for="recipient-dataCadastro" class="col-form-label fw-semibold">Última Alteração</label>
+                            <input type="text" class="form-control fw-semibold required opacity-75" name="ultima_alteracao" id="recipientultima_alteracao" value="<?php echo date('d/m/Y - H:i:s') ?>" disabled>
                         </div>
 
                     </div>
 
 
-                    <input type="hidden" name="id" class="form-control" id="id">
+                    <input type="hidden" name="id" class="form-control fw-semibold required opacity-75" id="id">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
