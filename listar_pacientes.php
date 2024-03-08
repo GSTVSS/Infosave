@@ -107,37 +107,7 @@ if (isset($_SESSION['success'])) {
                                         </a>
                                     </td>
                                     <td class="text text-center">
-                                        <a href="#" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#editarPaciente" 
-                                            data-whatever="<?php echo $linha['id_paciente']; ?>" 
-                                            data-whatevernome="<?php echo ucwords(strtolower($linha['nome'])); ?>" 
-                                            data-whateversexo="<?php echo $linha['sexo']; ?>" 
-                                            data-whatevernascimento="<?php echo $linha['nascimento']; ?>" 
-                                            data-whatevertelefone_residencia="<?php echo $linha['telefone_residencia']; ?>" 
-                                            data-whatevertomador="<?php echo $linha['tomador']; ?>" 
-                                            data-whateverdiagnostico="<?php echo $linha['diagnostico']; ?>" 
-                                            data-whateverpad_autorizado="<?php echo $linha['pad_autorizado']; ?>" 
-                                            data-whatevercep="<?php echo $linha['cep']; ?>" 
-                                            data-whateveruf="<?php echo $linha['uf']; ?>" 
-                                            data-whatevercidade="<?php echo $linha['cidade']; ?>" 
-                                            data-whateverbairro="<?php echo $linha['bairro']; ?>" 
-                                            data-whateverrua="<?php echo $linha['rua']; ?>" 
-                                            data-whatevernumero="<?php echo $linha['numero']; ?>" 
-                                            data-whateverregiao="<?php echo $linha['regiao']; ?>" 
-                                            data-whatevercriado_por="<?php echo $criado_por; ?>" 
-                                            data-whateverdata_cadastro="<?php echo $linha['data_cadastro']; ?>" 
-                                            data-whateversituacao="<?php echo $situacao; ?>" 
-                                            data-whateveralterado_por="<?php echo $linha['alterado_por']; ?>" 
-                                            data-whateverultima_alteracao="<?php echo $linha['ultima_alteracao']; ?>" 
-                                            data-whateverterapeuta_ocupacional="<?php echo $especialidades['Terapeuta Ocupacional']; ?>" 
-                                            data-whateverpsicologo="<?php echo $especialidades['Psicólogo']; ?>" 
-                                            data-whatevernutricionista="<?php echo $especialidades['Nutricionista']; ?>" 
-                                            data-whatevermedico="<?php echo $especialidades['Médico']; ?>" 
-                                            data-whateverfonoaudiólogo="<?php echo $especialidades['Fonoaudiólogo']; ?>" 
-                                            data-whateverfisioterapeuta="<?php echo $especialidades['Fisioterapeuta']; ?>" 
-                                            data-whateverenfermeiro="<?php echo $especialidades['Enfermeiro']; ?>" 
-                                            data-whatevercuidador_idosos="<?php echo $especialidades['Cuidador de Idosos']; ?>" 
-                                            data-whateverauxilia_enfermagem="<?php echo $especialidades['Auxiliar de Enfermagem']; ?>" 
-                                            data-whatevertecnico_enfermagem="<?php echo $especialidades['Técnico de Enfermagem']; ?>">
+                                        <a href="#" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#editarPaciente" data-whatever="<?php echo $linha['id_paciente']; ?>" data-whatevernome="<?php echo ucwords(strtolower($linha['nome'])); ?>" data-whateversexo="<?php echo $linha['sexo']; ?>" data-whatevernascimento="<?php echo $linha['nascimento']; ?>" data-whatevertelefone_residencia="<?php echo $linha['telefone_residencia']; ?>" data-whatevertomador="<?php echo $linha['tomador']; ?>" data-whateverdiagnostico="<?php echo $linha['diagnostico']; ?>" data-whateverpad_autorizado="<?php echo $linha['pad_autorizado']; ?>" data-whatevercep="<?php echo $linha['cep']; ?>" data-whateveruf="<?php echo $linha['uf']; ?>" data-whatevercidade="<?php echo $linha['cidade']; ?>" data-whateverbairro="<?php echo $linha['bairro']; ?>" data-whateverrua="<?php echo $linha['rua']; ?>" data-whatevernumero="<?php echo $linha['numero']; ?>" data-whateverregiao="<?php echo $linha['regiao']; ?>" data-whatevercriado_por="<?php echo $criado_por; ?>" data-whateverdata_cadastro="<?php echo $linha['data_cadastro']; ?>" data-whateversituacao="<?php echo $situacao; ?>" data-whateveralterado_por="<?php echo $linha['alterado_por']; ?>" data-whateverultima_alteracao="<?php echo $linha['ultima_alteracao']; ?>" data-whateverterapeuta_ocupacional="<?php echo $especialidades['Terapeuta Ocupacional']; ?>" data-whateverpsicologo="<?php echo $especialidades['Psicólogo']; ?>" data-whatevernutricionista="<?php echo $especialidades['Nutricionista']; ?>" data-whatevermedico="<?php echo $especialidades['Médico']; ?>" data-whateverfonoaudiólogo="<?php echo $especialidades['Fonoaudiólogo']; ?>" data-whateverfisioterapeuta="<?php echo $especialidades['Fisioterapeuta']; ?>" data-whateverenfermeiro="<?php echo $especialidades['Enfermeiro']; ?>" data-whatevercuidador_idosos="<?php echo $especialidades['Cuidador de Idosos']; ?>" data-whateverauxilia_enfermagem="<?php echo $especialidades['Auxiliar de Enfermagem']; ?>" data-whatevertecnico_enfermagem="<?php echo $especialidades['Técnico de Enfermagem']; ?>">
                                             <i class="far fa-edit text text-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"></i></a>
                                     </td>
                                     <td class="text text-center">
@@ -369,7 +339,7 @@ if (isset($_SESSION['success'])) {
 </div>
 <!-- Modal ALERTA DE CADASTRO NAO REALIZADO-->
 <div class="modal fade" id="dangerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">aa
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel"></h5>
@@ -397,7 +367,7 @@ if (isset($_SESSION['success'])) {
             </div>
 
             <div class="modal-body bg-secondary" onpaste="return false">
-                <br>QQ
+                <br>
                 <h5 class="text-center p-2 fw-bolder">Dados Pessoais</h5>
                 <form method="POST" id="insert_form">
                     <div class="row">
@@ -793,9 +763,9 @@ if (isset($_SESSION['success'])) {
                         </div>
                     </div>
                     <div class="p-3 bg-secondary"></div>
-            <div class="modal-footer bg-secondary">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-            </div>
+                    <div class="modal-footer bg-secondary">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -1156,7 +1126,7 @@ if (isset($_SESSION['success'])) {
         modal.find('#recipient-auxilia_enfermagem').prop("checked", (recipientauxilia_enfermagem) ? true : false);
         modal.find('#recipient-tecnico_enfermagem').prop("checked", (recipienttecnico_enfermagem) ? true : false);
         console.log("Editado");
-        
+
     })
 </script>
 <script>
