@@ -1,12 +1,16 @@
 <?php
+
 session_start();
 include_once('assets/cabecalho.php');
 include_once('assets/rodape.php');
 include('config/conexao.php');
 include_once("config/seguranca.php");
+
 seguranca_adm();
+
 $consulta = "SELECT * FROM colaboradores ";
 $resultado = mysqli_query($conn, $consulta);
+
 ?>
 
 <?php include_once('assets/menu.php'); ?>
@@ -21,14 +25,14 @@ if (isset($_SESSION['success'])) {
     unset($_SESSION['success']);
 }
 ?>
+
 <div class="p-2 bg-dark shadow row g-2 bg-secondary"></div>
 <div class="p-1 bg-warning"></div>
-
 <div class="container-flex text-center p-3 d-flex justify-content-center bg-secondary">
     <div class="containder-flex text-center w-50 hstack bg-secondary gap-3">
         <input class="form-control fw-semibold required opacity-75 me-2 h-40 p-4 shadow bg-body-tertiary rounded" type="search" name="pesquisa_paciente" placeholder="Buscar" aria-label="Buscar" required="autofocus">
         <!-- <button type="button" class="btn btn-primary btn-lg h-100 shadow rounded" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#pesquisa_paciente">Buscar</button> -->
-        <button type="button" class="btn btn-primary btn-lg h-100 shadow rounded" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#cadPacientes">Cadastrar</button>
+        <button type="button" class="btn btn-primary btn-lg h-100 shadow rounded" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#cadColaboradores">Cadastrar</button>
     </div>
 </div>
 <div class="container-flex p-3 d-flex justify-content-center bg-secondary">
@@ -40,7 +44,7 @@ if (isset($_SESSION['success'])) {
                         <thead>
                             <tr class="bg-dark text text-white">
                                 <th scope="col">CÓD</th>
-                                <th scope="col">NOME</th>
+                                <th scope="col">NOMES</th>
                                 <th scope="col">ESPECIALIDADE</th>
                                 <th scope="col">CONTATO</th>
                                 <th scope="col">ENDEREÇO</th>
@@ -88,158 +92,142 @@ if (isset($_SESSION['success'])) {
                                     <td><?php echo $linha['situacao']; ?></td>
                                     <td class="text text-center">
                                         <a href="#" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#visualizarColaborador" data-whatever="<?php echo $linha['id_colaborador']; ?>" data-whateveremail="<?php echo $linha['email']; ?>" data-whatevernome="<?php echo $nome; ?>" data-whateversexo="<?php echo $linha['sexo']; ?>" data-whatevertelefone="<?php echo $linha['telefone']; ?>" data-whatevercep="<?php echo $linha['cep']; ?>" data-whatevercidade="<?php echo $linha['cidade']; ?>" data-whateverestado="<?php echo $linha['estado']; ?>" data-whateverbairro="<?php echo $linha['bairro']; ?>" data-whateverrua="<?php echo $linha['rua']; ?>" data-whatevernumero="<?php echo $linha['numero']; ?>" data-whatevernascimento="<?php echo $nascimento; ?>" data-whateveroperador="<?php echo $linha['criado_por']; ?>" data-whateversituacao="<?php echo $situacao; ?>" data-whateverdata_cadastro="<?php echo $data_cadastro; ?>" data-whateveralterado_por="<?php echo $alterado_por; ?>" data-whateverultima_alteracao="<?php echo $ultima_alteracao; ?>" data-whatevercpf="<?php echo $linha['cpf']; ?>" data-whateverrg="<?php echo $linha['rg']; ?>" data-whatevernome_mae="<?php echo $linha['nome_mae']; ?>" data-whateverorg_emissor="<?php echo $linha['org_emissor']; ?>" data-whateverdata_expedicao="<?php echo date('d/m/Y',  strtotime($linha['data_expedicao'])); ?>" data-whateverregistro="<?php echo $linha['registro']; ?>" data-whateverespecialidade="<?php echo $linha['especialidade']; ?>" data-whateverbanco="<?php echo $linha['banco']; ?>" data-whatevertipo_conta="<?php echo $linha['tipo_conta']; ?>" data-whateveragencia="<?php echo $linha['agencia']; ?>" data-whateverconta="<?php echo $linha['conta']; ?>" data-whateverpix="<?php echo $linha['pix']; ?>">
-
                                             <i class="far fa-eye text text-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Visualizar"></i>
                                         </a>
                                     </td>
-
                                     <td class="text text-center">
-                                        <a href="#" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#editarPaciente" data-whatever="<?php echo $linha['id_colaborador']; ?>" data-whateveremail="<?php echo $linha['email']; ?>" data-whatevernome="<?php echo ucwords(strtolower($linha['nome'])); ?>" data-whateversexo="<?php echo $linha['sexo']; ?>" data-whatevertelefone="<?php echo $linha['telefone']; ?>" data-whatevercep="<?php echo $linha['cep']; ?>" data-whatevercidade="<?php echo $linha['cidade']; ?>" data-whateverestado="<?php echo $linha['estado']; ?>" data-whateverbairro="<?php echo $linha['bairro']; ?>" data-whateverrua="<?php echo $linha['rua']; ?>" data-whatevernumero="<?php echo $linha['numero']; ?>" data-whatevernascimento="<?php echo $nascimento; ?>" data-whateveroperador="<?php echo $linha['criado_por']; ?>" data-whateversituacao="<?php echo $situacao; ?>" data-whateverdata_cadastro="<?php echo $data_cadastro; ?>" data-whateveralterado_por="<?php echo $alterado_por; ?>" data-whateverultima_alteracao="<?php echo $ultima_alteracao; ?>" data-whatevercpf="<?php echo $linha['cpf']; ?>" data-whateverrg="<?php echo $linha['rg']; ?>" data-whatevernome_mae="<?php echo $linha['nome_mae']; ?>" data-whateverorg_emissor="<?php echo $linha['org_emissor']; ?>" data-whateverdata_expedicao="<?php echo date('d/m/Y',  strtotime($linha['data_expedicao'])); ?>" data-whateverregistro="<?php echo $linha['registro']; ?>" data-whateverespecialidade="<?php echo $linha['especialidade']; ?>" data-whateverbanco="<?php echo $linha['banco']; ?>" data-whatevertipo_conta="<?php echo $linha['tipo_conta']; ?>" data-whateveragencia="<?php echo $linha['agencia']; ?>" data-whateverconta="<?php echo $linha['conta']; ?>" data-whateverpix="<?php echo $linha['pix']; ?>">
-
-                                            <i class="far fa-edit text text-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"></i></a>
+                                        <a href="#" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#editarColaborador" data-whatever="<?php echo $linha['id_colaborador']; ?>" data-whateveremail="<?php echo $linha['email']; ?>" data-whatevernome="<?php echo ucwords(strtolower($linha['nome'])); ?>" data-whateversexo="<?php echo $linha['sexo']; ?>" data-whatevertelefone="<?php echo $linha['telefone']; ?>" data-whatevercep="<?php echo $linha['cep']; ?>" data-whatevercidade="<?php echo $linha['cidade']; ?>" data-whateverestado="<?php echo $linha['estado']; ?>" data-whateverbairro="<?php echo $linha['bairro']; ?>" data-whateverrua="<?php echo $linha['rua']; ?>" data-whatevernumero="<?php echo $linha['numero']; ?>" data-whatevernascimento="<?php echo $nascimento; ?>" data-whateveroperador="<?php echo $linha['criado_por']; ?>" data-whateversituacao="<?php echo $situacao; ?>" data-whateverdata_cadastro="<?php echo $data_cadastro; ?>" data-whateveralterado_por="<?php echo $alterado_por; ?>" data-whateverultima_alteracao="<?php echo $ultima_alteracao; ?>" data-whatevercpf="<?php echo $linha['cpf']; ?>" data-whateverrg="<?php echo $linha['rg']; ?>" data-whatevernome_mae="<?php echo $linha['nome_mae']; ?>" data-whateverorg_emissor="<?php echo $linha['org_emissor']; ?>" data-whateverdata_expedicao="<?php echo date('d/m/Y',  strtotime($linha['data_expedicao'])); ?>" data-whateverregistro="<?php echo $linha['registro']; ?>" data-whateverespecialidade="<?php echo $linha['especialidade']; ?>" data-whateverbanco="<?php echo $linha['banco']; ?>" data-whatevertipo_conta="<?php echo $linha['tipo_conta']; ?>" data-whateveragencia="<?php echo $linha['agencia']; ?>" data-whateverconta="<?php echo $linha['conta']; ?>" data-whateverpix="<?php echo $linha['pix']; ?>">
+                                        <i class="far fa-edit text text-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"></i></a>
                                     </td>
                                     <td class="text text-center">
                                         <a href="processa_excluir_colaborador.php?id_colaborador=<?php echo $linha['id_colaborador']; ?>" onClick="return confirm('Deseja realmente deletar o colaborador?')">
-                                            <i class="far fa-trash-alt text text-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Excluir"></i></a>
+                                        <i class="far fa-trash-alt text text-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Excluir"></i></a>
                                     </td>
-
                                 </tr>
                             </tbody>
                         <?php } ?>
                     </table>
-
-                    <!-- ================================== MODAL CADASTRAR CLIENTE----------------------------------------------------------------->
-                    <style>
-                        .errorInput {
-                            border: 2px solid red !important;
-                        }
-                    </style>
-                    <script>
-                        // ================================ FUNÇÃO PARA MASCARA DE TELEFONE =============================================
-                        function mask(o, f) {
-                            setTimeout(function() {
-                                var v = telefone(o.value);
-                                if (v != o.value) {
-                                    o.value = v;
-                                }
-                            }, 1);
-                        }
-
-                        function telefone(v) {
-                            var r = v.replace(/\D/g, "");
-                            r = r.replace(/^0/, ""); //limpa o campo se começar com ZERO (0)
-                            if (r.length > 10) {
-                                r = r.replace(/^(\d\d)(\d{5})(\d{4}).*/, "($1) $2-$3");
-                            } else if (r.length > 5) {
-                                r = r.replace(/^(\d\d)(\d{4})(\d{0,4}).*/, "($1) $2-$3");
-                            } else if (r.length > 2) {
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ================================== MODAL CADASTRAR CLIENTE----------------------------------------------------------------->
+<style>
+    .errorInput {
+        border: 2px solid red !important;
+    }
+</style>
+<script>
+// ================================ FUNÇÃO PARA MASCARA DE TELEFONE =============================================
+    function mask(o, f) {
+        setTimeout(function() {
+            var v = telefone(o.value);
+                if (v != o.value) {
+                    o.value = v;
+                }
+        }, 1);
+    }
+    function telefone(v) {
+        var r = v.replace(/\D/g, "");
+        r = r.replace(/^0/, ""); //limpa o campo se começar com ZERO (0)
+        if (r.length > 10) {
+            r = r.replace(/^(\d\d)(\d{5})(\d{4}).*/, "($1) $2-$3");
+        } else if (r.length > 5) {
+            r = r.replace(/^(\d\d)(\d{4})(\d{0,4}).*/, "($1) $2-$3");
+        } else if (r.length > 2) {
+            r = r.replace(/^(\d\d)(\d{0,5})/, "($1) $2");
+        } else {
+            r = r.replace(/^(\d*)/, "($1");
+        }
+        return r;
+    }
+// ================================ FUNÇÃO PARA MASCARA DE CELULAR =============================================
+    function mask(o, f) {
+        setTimeout(function() {
+            var v = celular(o.value);
+            if (v != o.value) {
+                o.value = v;
+            }
+        }, 1);
+    }
+    function celular(v) {
+        var r = v.replace(/\D/g, "");
+        r = r.replace(/^0/, ""); //limpa o campo se começar com ZERO (0)
+        if (r.length > 10) {
+            r = r.replace(/^(\d\d)(\d{5})(\d{4}).*/, "($1) $2-$3");
+        } else if (r.length > 5) {
+            r = r.replace(/^(\d\d)(\d{4})(\d{0,4}).*/, "($1) $2-$3");
+        } else if (r.length > 2) {
                                 r = r.replace(/^(\d\d)(\d{0,5})/, "($1) $2");
-                            } else {
-                                r = r.replace(/^(\d*)/, "($1");
-                            }
-                            return r;
-                        }
-
-                        // ================================ FUNÇÃO PARA MASCARA DE CELULAR =============================================
-                        function mask(o, f) {
-                            setTimeout(function() {
-                                var v = celular(o.value);
-                                if (v != o.value) {
-                                    o.value = v;
-                                }
-                            }, 1);
-                        }
-
-                        function celular(v) {
-                            var r = v.replace(/\D/g, "");
-                            r = r.replace(/^0/, ""); //limpa o campo se começar com ZERO (0)
-                            if (r.length > 10) {
-                                r = r.replace(/^(\d\d)(\d{5})(\d{4}).*/, "($1) $2-$3");
-                            } else if (r.length > 5) {
-                                r = r.replace(/^(\d\d)(\d{4})(\d{0,4}).*/, "($1) $2-$3");
-                            } else if (r.length > 2) {
-                                r = r.replace(/^(\d\d)(\d{0,5})/, "($1) $2");
-                            } else {
-                                r = r.replace(/^(\d*)/, "($1");
-                            }
-                            return r;
-                        }
-
-                        // ================================ FUNÇÃO PARA MASCARA DE NASCIMENTO =============================================
-                        $(document).ready(function() {
-                            $("#nascimento").mask("99/99/9999");
-                        });
-
-                        // FUNÇÃO PARA ADICONAR ENDEREÇO VIA CEP (https://viacep.com.br/exemplo/javascript/)
-                        function limpa_formulário_cep() {
-                            //Limpa valores do formulário de cep.
-                            document.getElementById('rua').value = ("");
-                            document.getElementById('bairro').value = ("");
-                            document.getElementById('cidade').value = ("");
-                            document.getElementById('uf').value = ("");
-                        }
-
-                        function meu_callback(conteudo) {
-                            if (!("erro" in conteudo)) {
-                                //Atualiza os campos com os valores.
-                                document.getElementById('rua').value = (conteudo.logradouro);
-                                document.getElementById('bairro').value = (conteudo.bairro);
-                                document.getElementById('cidade').value = (conteudo.localidade);
-                                document.getElementById('uf').value = (conteudo.uf);
-                            } //end if.
-                            else {
-                                //CEP não Encontrado.
-                                limpa_formulário_cep();
-                                alert("CEP não encontrado.");
-                            }
-                        }
-
-                        function pesquisacep(valor) {
-                            //Nova variável "cep" somente com dígitos.
-                            var cep = valor.replace(/\D/g, '');
-                            console.log("procurando cep");
-                            //Verifica se campo cep possui valor informado.
-                            if (cep != "") {
-
-                                //Expressão regular para validar o CEP.
-                                var validacep = /^[0-9]{8}$/;
-
-                                //Valida o formato do CEP.
-                                if (validacep.test(cep)) {
-
-                                    //Preenche os campos com "..." enquanto consulta webservice.
-                                    document.getElementById('rua').value = "...";
-                                    document.getElementById('bairro').value = "...";
-                                    document.getElementById('cidade').value = "...";
-                                    document.getElementById('uf').value = "...";
-
-                                    //Cria um elemento javascript.
-                                    var script = document.createElement('script');
-
-                                    //Sincroniza com o callback.
-                                    script.src = 'https://viacep.com.br/ws/' + cep + '/json/?callback=meu_callback';
-
-                                    //Insere script no documento e carrega o conteúdo.
-                                    document.body.appendChild(script);
-
-                                } //end if.
-                                else {
-                                    //cep é inválido.
-                                    limpa_formulário_cep();
-                                    alert("Formato de CEP inválido.");
-                                }
-                            } //end if.
-                            else {
-                                //cep sem valor, limpa formulário.
-                                limpa_formulário_cep();
-                            }
-                        };
-
-
-                        $(document).ready(function() {
-
-                            $('#insert_form').on('submit', function(event) {
-                                event.preventDefault(); //EVITA O SUBMIT DO FORM
+        } else {
+            r = r.replace(/^(\d*)/, "($1");
+        }
+        return r;
+    }
+// ================================ FUNÇÃO PARA MASCARA DE NASCIMENTO =============================================
+    $(document).ready(function() {
+        $("#nascimento").mask("99/99/9999");
+        $("#expedicao").mask("99/99/9999");
+    });
+// FUNÇÃO PARA ADICONAR ENDEREÇO VIA CEP (https://viacep.com.br/exemplo/javascript/)
+    function limpa_formulário_cep() {
+        //Limpa valores do formulário de cep.
+        document.getElementById('rua').value = ("");
+        document.getElementById('bairro').value = ("");
+        document.getElementById('cidade').value = ("");
+        document.getElementById('uf').value = ("");
+    }
+    function meu_callback(conteudo) {
+        if (!("erro" in conteudo)) {
+            //Atualiza os campos com os valores.
+            document.getElementById('rua').value = (conteudo.logradouro);
+            document.getElementById('bairro').value = (conteudo.bairro);
+            document.getElementById('cidade').value = (conteudo.localidade);
+            document.getElementById('uf').value = (conteudo.uf);
+        } //end if.
+        else {
+            //CEP não Encontrado.
+            limpa_formulário_cep();
+            alert("CEP não encontrado.");
+        }
+    }
+    function pesquisacep(valor) {
+        //Nova variável "cep" somente com dígitos.
+        var cep = valor.replace(/\D/g, '');
+        console.log("procurando cep");
+        //Verifica se campo cep possui valor informado.
+        if (cep != "") {
+            //Expressão regular para validar o CEP.
+            var validacep = /^[0-9]{8}$/;
+            //Valida o formato do CEP.
+            if (validacep.test(cep)) {
+                //Preenche os campos com "..." enquanto consulta webservice.
+                document.getElementById('rua').value = "...";
+                document.getElementById('bairro').value = "...";
+                document.getElementById('cidade').value = "...";
+                document.getElementById('uf').value = "...";
+                //Cria um elemento javascript.
+                var script = document.createElement('script');
+                //Sincroniza com o callback.
+                script.src = 'https://viacep.com.br/ws/' + cep + '/json/?callback=meu_callback';
+                //Insere script no documento e carrega o conteúdo.
+                document.body.appendChild(script);
+            } //end if.
+            else {
+                //cep é inválido.
+                limpa_formulário_cep();
+                alert("Formato de CEP inválido.");
+            }
+        } //end if.
+        else {
+            //cep sem valor, limpa formulário.
+            limpa_formulário_cep();
+        }
+    };
+$(document).ready(function() {
+$('#insert_form').on('submit', function(event) {
+event.preventDefault(); //EVITA O SUBMIT DO FORM
 
                                 var nome = $('#nome'); // PEGA O CAMPO CLIENTE DO FORM
                                 var telefone = $('#telefone_residencia'); // PEGA O CAMPO TELEFONE DO FORM
@@ -341,24 +329,21 @@ if (isset($_SESSION['success'])) {
                         </div>
                     </div>
                     <!-- ==================================================MODAL CADASTRO DE COLABORADOR ==================================== -->
-                    <div class="modal fade" id="cadPacientes" tabindex="-1" aria-labelledby="exempleModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="cadColaboradores" tabindex="-1" aria-labelledby="exempleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-xl text-light">
                             <div class="modal-content">
                                 <div class="modal-header bg-secondary">
                                     <h5 class="modal-title fw-bolder" id="exempleModalLabel">Cadastrar Paciente</h5>
-
                                     <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" aria-hidden="true"></button>
                                 </div>
-
                                 <div class="alert alert-danger d-none fade show m-3" role="alert">
                                     <strong>ERRO!</strong> - <strong> Preencha todos os campos <span id="campo-erro"></span></strong>!
                                     <span id="msg"></span>
                                 </div>
-
                                 <div class="modal-body bg-secondary" onpaste="return false">
                                     <br>
                                     <h5 class="text-center p-2 fw-bolder">Dados Pessoais</h5>
-                                    <form method="POST" id="insert_form">
+                                    <form method="POST" action="cadastro_colaborador.php" id="insert_form2">
                                         <div class="row">
                                             <div class="col-12">
                                                 <label for="recipient-name" class="col-form-label fw-semibold">Nome Completo</label>
@@ -396,7 +381,7 @@ if (isset($_SESSION['success'])) {
                                             </div>
                                             <div class="col-md-6 col-sm-12">
                                                 <label for="recipient-expedicao" class="col-form-label fw-semibold">Data de Expedição</label>
-                                                <input type="date" class="form-control fw-semibold required opacity-75" name="expedicao" id="expedicao">
+                                                <input type="text" class="form-control fw-semibold required opacity-75" name="expedicao" id="expedicao">
                                             </div>
                                         </div>
                                         <div class="row">
@@ -433,7 +418,6 @@ if (isset($_SESSION['success'])) {
                                                 <input type="text" class="form-control fw-semibold required opacity-75" name="registro" id="registro">
                                             </div>
                                         </div>
-
                                         <!--//endereço paciente// -->
                                         <div class="row">
                                             <div class="col-md-5 col-sm-12">
@@ -490,8 +474,6 @@ if (isset($_SESSION['success'])) {
                                                 <input type="text" max="15" class="form-control fw-semibold required opacity-75" name="pix" id="pix">
                                             </div>
                                         </div>
-
-
                                         <div class="row">
                                             <div class="col-md-4 col-sm-12">
                                                 <label for="recipient-criado_por" class="col-form-label fw-semibold cli">Operador</label>
@@ -765,7 +747,7 @@ if (isset($_SESSION['success'])) {
                     </script>
 
                     <!-- -----------------------------------MODAL EDITAR CLIENTE----------------------------------------------------------------->
-                    <div class="modal fade" id="editarCliente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="editarColaborador" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -775,122 +757,166 @@ if (isset($_SESSION['success'])) {
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form method="POST" action="processa_edit_clientes.php" enctype="multipart/form-data">
-
-                                        <div class="row">
-                                            <div class="col-md-6 col-sm-12">
-                                                <label for="recipient-name" class="col-form-label fw-semibold">Nome</label>
-                                                <input type="text" class="form-control fw-semibold required opacity-75" id="recipient-name" name="nome">
+                                    <form method="POST" action="processa_edit_colaborador.php" enctype="multipart/form-data">
+                                    <input type="text" id='id' name='id_colaborador' style="display: none;">
+                                    <div class="row">
+                                            <div class="col-12">
+                                                <label for="recipient-name" class="col-form-label fw-semibold">Nome Completo</label>
+                                                <input type="text" class="form-control fw-semibold required opacity-75" name="nome" id="recipient-nome">
                                             </div>
-                                            <div class="col-md-6 col-sm-12">
+                                            <div class="col-4">
+                                                <label for="recipient-sexo" class="col-form-label fw-semibold">Sexo</label>
+                                                <select class="form-control fw-semibold required opacity-75 form-select-lg select2" name="sexo" id="recipient-sexo" aria-label=".form-select-lg example">
+                                                    <option value="MASCULINO">MASCULINO</option>
+                                                    <option value="FEMININO">FEMININO</option>
+                                                    <option value="OUTRO">OUTRO</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-4">
+                                                <label for="recipient-nascimento" class="col-form-label fw-semibold">Data de Nascimento</label>
+                                                <input type="text" class="form-control fw-semibold required opacity-75" name="nascimento" id="recipient-nascimento">
+                                            </div>
+                                            <div class="col-4">
+                                                <label for="recipient-telefone_residencia" class="col-form-label fw-semibold">Contato</label>
+                                                <input type="text" max="15" class="form-control fw-semibold required opacity-75" name="telefone" id="recipient-telefone" onkeyup="mask(this)">
+                                            </div>
+                                            <div class="col-4">
                                                 <label for="recipient-email" class="col-form-label fw-semibold">E-mail</label>
-                                                <input type="email" class="form-control fw-semibold required opacity-75" id="recipient-email" name="email">
+                                                <input type="email" max="15" class="form-control fw-semibold required opacity-75" name="email" id="recipient-email">
                                             </div>
                                         </div>
-
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-12">
+                                                <label for="recipient-rg" class="col-form-label fw-semibold">RG</label>
+                                                <input type="text" class="form-control fw-semibold required opacity-75" name="rg" id="recipient-rg">
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <label for="recipient-org_emissor" class="col-form-label fw-semibold">Orgão Emissor</label>
+                                                <input type="text" class="form-control fw-semibold required opacity-75" name="org_emissor" id="recipient-org_emissor">
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <label for="recipient-expedicao" class="col-form-label fw-semibold">Data de Expedição</label>
+                                                <input type="text" class="form-control fw-semibold required opacity-75" name="expedicao" id="recipient-expedicao">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-12">
+                                                <label for="recipient-cpf" class="col-form-label fw-semibold">CPF</label>
+                                                <input type="text" class="form-control fw-semibold required opacity-75" name="cpf" id="recipient-cpf">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-12 mb-4">
+                                                <label for="recipient-nome_mae" class="col-form-label fw-semibold">Nome da Mãe</label>
+                                                <input type="text" class="form-control fw-semibold required opacity-75" name="nome_mae" id="recipient-nome_mae">
+                                            </div>
+                                        </div>
+                                        <!-- //quadro do paciente// -->
                                         <div class="row">
                                             <div class="col-md-10 col-sm-12">
-                                                <label for="recipient-rua" class="col-form-label fw-semibold">Rua</label>
-                                                <input type="text" class="form-control fw-semibold required opacity-75" id="recipient-rua" name="rua">
+                                                <label for="recipient-especialidade" class="col-form-label fw-semibold">Especialidade</label>
+                                                <select class="form-control fw-semibold required opacity-75 form-select-lg select2" name="especialidade" id="recipient-especialidade" aria-label=".form-select-lg example">
+                                                    <option value="Terapeuta Ocupacional">Terapeuta Ocupacional</option>
+                                                    <option value="Psicólogo">Psicólogo</option>
+                                                    <option value="Nutricionista">Nutricionista</option>
+                                                    <option value="Fonoaudiólogo">Fonoaudiólogo</option>
+                                                    <option value="Médico">Médico</option>
+                                                    <option value="Fisioterapeuta">Fisioterapeuta</option>
+                                                    <option value="Auxiliar de Enfermagem">Auxiliar de Enfermagem</option>
+                                                    <option value="Técnico de Enfermagem">Técnico de Enfermagem</option>
+                                                    <option value="Enfermeiro">Enfermeiro</option>
+                                                    <option value="Cuidador de Idosos">Cuidador de Idosos</option>
+                                                </select>
                                             </div>
-                                            <div class="col-md-2 col-sm-12">
-                                                <label for="recipient-numero" class="col-form-label fw-semibold">Nº</label>
-                                                <input type="text" name="numero" id="recipient-numero" class="form-control fw-semibold required opacity-75 -10">
+                                            <div class="col-md-6 col-sm-12 mb-4">
+                                                <label for="recipient-registro" class="col-form-label fw-semibold">Registro Profisisonal</label>
+                                                <input type="text" class="form-control fw-semibold required opacity-75" name="registro" id="recipient-registro">
                                             </div>
-
                                         </div>
 
+                                        <!--//endereço paciente// -->
                                         <div class="row">
                                             <div class="col-md-5 col-sm-12">
-                                                <label for="recipient-bairro" class="col-form-label fw-semibold">Bairro</label>
-                                                <input type="text" name="bairro" id="recipient-bairro" maxlength="50" class="form-control fw-semibold required opacity-75">
-                                            </div>
-                                            <div class="col-md-5 col-sm-12">
-                                                <label for="recipient-cidade" class="col-form-label fw-semibold">cidade</label>
-                                                <input type="text" name="cidade" id="recipient-cidade" maxlength="50" class="form-control fw-semibold required opacity-75 -10">
-                                            </div>
-                                            <div class="col-md-2 col-sm-12">
                                                 <label for="recipient-cep" class="col-form-label fw-semibold">Cep</label>
-                                                <input type="text" name="cep" id="recipient-cep" maxlength="50" class="form-control fw-semibold required opacity-75">
-                                            </div>
-
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-md-4 col-sm-12">
-                                                <label for="recipient-cidade" class="col-form-label fw-semibold">Cidade</label>
-                                                <input type="text" name="cidade" id="recipient-cidade" maxlength="50" class="form-control fw-semibold required opacity-75">
+                                                <input type="text" name="cep" id="recipient-cep" maxlength="50" class="form-control fw-semibold required opacity-75" onblur="pesquisacep(this.value)">
                                             </div>
                                             <div class="col-md-2 col-sm-12">
                                                 <label for="recipient-uf" class="col-form-label fw-semibold">UF</label>
-                                                <input type="text" name="uf" id="recipient-uf" maxlength="50" class="form-control fw-semibold required opacity-75 -10">
+                                                <input type="text" name="uf" id="recipient-uf" maxlength="50" class="form-control fw-semibold required opacity-75">
                                             </div>
-                                            <div class="col-md-3 col-sm-12">
-                                                <label for="recipient-telefone" class="col-form-label fw-semibold">Telefone</label>
-                                                <input type="text" name="telefone" id="recipient-telefone" onkeypress="mask(this, telefone);" onblur="mask(this, telefone);" class="form-control fw-semibold required opacity-75 -10">
+                                            <div class="col-md-5 col-sm-12">
+                                                <label for="recipient-cidade" class="col-form-label fw-semibold">Cidade</label>
+                                                <input type="text" name="cidade" id="recipient-cidade" maxlength="50" class="form-control fw-semibold required opacity-75 -10">
                                             </div>
-                                            <div class="col-md-3 col-sm-12">
-                                                <label for="recipient-celular" class="col-form-label fw-semibold">Celular</label>
-                                                <input type="text" name="celular" id="recipient-celular" maxlength="50" onkeypress="mask(this, celular);" onblur="mask(this, celular);" class="form-control fw-semibold required opacity-75 -10">
+                                            <div class="col-md-2 col-sm-12">
+                                                <label for="recipient-bairro" class="col-form-label fw-semibold">Bairro</label>
+                                                <input type="text" name="bairro" id="recipient-bairro" maxlength="50" class="form-control fw-semibold required opacity-75">
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <label for="recipient-rua" class="col-form-label fw-semibold">Rua</label>
+                                                <input type="text" name="rua" id="recipient-rua" maxlength="50" class="form-control fw-semibold required opacity-75">
+                                            </div>
+                                            <div class="col-md-2 col-sm-12">
+                                                <label for="recipient-numero" class="col-form-label fw-semibold">Nº</label>
+                                                <input type="text" name="numero" id="recipient-numero" maxlength="50" class="form-control fw-semibold required opacity-75">
+                                            </div>
+                                        </div>
+                                        <!-----              DADOS BANCARIOS                 -->
+                                        <div class="row">
+                                            <div class="col-md-10 col-sm-12">
+                                                <label for="recipient-banco" class="col-form-label fw-semibold">Banco</label>
+                                                <input type="text" max="15" class="form-control fw-semibold required opacity-75" name="banco" id="recipient-banco">
+                                            </div>
+                                            <div class="col-md-10 col-sm-12">
+                                                <label for="recipient-tipo_conta" class="col-form-label fw-semibold">Tipo de Conta</label>
+                                                <select class="form-control fw-semibold required opacity-75 form-select-lg select2" name="tipo_conta" id="recipient-tipo_conta" aria-label=".form-select-lg example">
+                                                    <option value="CORRENTE">Corrente</option>
+                                                    <option value="POUPANÇA">Poupança</option>
+                                                    <option value="OUTRO">Outro</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-10 col-sm-12">
+                                                <label for="recipient-conta" class="col-form-label fw-semibold">Conta</label>
+                                                <input type="text" max="15" class="form-control fw-semibold required opacity-75" name="conta" id="recipient-conta">
+                                            </div>
+                                            <div class="col-md-10 col-sm-12">
+                                                <label for="recipient-agencia" class="col-form-label fw-semibold">Agencia</label>
+                                                <input type="text" max="15" class="form-control fw-semibold required opacity-75" name="agencia" id="recipient-agencia">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-10 col-sm-12 mb-4">
+                                                <label for="recipient-pix" class="col-form-label fw-semibold">PIX</label>
+                                                <input type="text" max="15" class="form-control fw-semibold required opacity-75" name="pix" id="recipient-pix">
                                             </div>
                                         </div>
 
+
                                         <div class="row">
                                             <div class="col-md-4 col-sm-12">
-                                                <label for="recipient-cpf" class="col-form-label fw-semibold">CPF</label>
-                                                <input type="text" name="cpf" id="recipient-cpf" maxlength="50" class="form-control fw-semibold required opacity-75">
+                                                <label for="recipient-criado_por" class="col-form-label fw-semibold cli">Operador</label>
+                                                <input type="text" name="criado_por" id="criado_por" maxlength="50" class="form-control fw-semibold required opacity-75" value="<?php echo $_SESSION['usuarioNome'] ?>" disabled>
                                             </div>
                                             <div class="col-md-4 col-sm-12">
-                                                <label for="recipient-rg" class="col-form-label fw-semibold">RG</label>
-                                                <input type="text" name="rg" id="recipient-rg" maxlength="50" class="form-control fw-semibold required opacity-75 -10">
-                                            </div>
-                                            <div class="col-md-4 col-sm-12">
-                                                <label for="recipient-nascimento" class="col-form-label fw-semibold">Nascimento</label>
-                                                <input type="text" name="nascimento" id="recipient-nascimento" class="form-control fw-semibold required opacity-75 -10">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-4 col-sm-12">
-                                                <label for="recipient-operador" class="col-form-label fw-semibold cli">Cadastrado por</label>
-                                                <input type="text" name="operador" id="recipient-operador" maxlength="50" class="form-control fw-semibold required opacity-75" disabled>
-                                            </div>
-                                            <div class="col-md-4 col-sm-12">
-                                                <label for="recipient-dataCadastro" class="col-form-label fw-semibold">Data do cadastro</label>
-                                                <input type="text" class="form-control fw-semibold required opacity-75" id="recipient-dataCadastro" disabled>
+                                                <label for="recipient-data_cadastro" class="col-form-label fw-semibold">Data do cadastro</label>
+                                                <input type="text" id="recipient-data_cadastro" class="form-control fw-semibold required opacity-75" disabled>
                                             </div>
                                             <div class="col-md-4 col-sm-12">
 
                                                 <label for="recipient-situacao" class="col-form-label fw-semibold">Situação</label>
                                                 <select class="form-control fw-semibold required opacity-75 form-select-lg mb-5 select2" name="situacao" id="recipient-situacao" aria-label=".form-select-lg example">
-                                                    <option value="Pendente">Pendente</option>
-                                                    <option value="Ativo">Ativo</option>
-                                                    <option value="Inativo">Inativo</option>
-                                                    <option value="Cancelado">Cancelado</option>
-
+                                                    <option value="PENDENTE">Aguardando Liberação</option>
+                                                    <option value="ATIVO">Ativo</option>
+                                                    <option value="INATIVO">Inativo</option>
+                                                    <option value="BANIDO">Banido</option>
                                                 </select>
-
                                             </div>
                                         </div>
 
-
-                                        <div class="row">
-                                            <div class="col-md-4 col-sm-12">
-                                                <label for="recipient-operador" class="col-form-label fw-semibold cli">Alterado por</label>
-                                                <input type="text" name="alterado_por" id="recipient-alterado_por" maxlength="50" class="form-control fw-semibold required opacity-75" disabled value="<?php echo $_SESSION['usuarioNome'] ?>">
-                                            </div>
-                                            <div class="col-md-4 col-sm-12">
-                                                <label for="recipient-dataCadastro" class="col-form-label fw-semibold">Última Alteração</label>
-                                                <input type="text" class="form-control fw-semibold required opacity-75" name="ultima_alteracao" id="recipientultima_alteracao" value="<?php echo date('d/m/Y - H:i:s') ?>" disabled>
-                                            </div>
-
-                                        </div>
-
-
-                                        <input type="hidden" name="id" class="form-control fw-semibold required opacity-75" id="id">
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                                    <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                                    <button type="submit" class="btn btn-primary" id="btn-cadastrar">Salvar</button>
                                 </div>
 
                                 </form>
@@ -901,7 +927,7 @@ if (isset($_SESSION['success'])) {
                     </div>
                     <!-- -----------------------------------SCRIPT MODAL EDITAR CLIENTE----------------------------------------------------------------->
                     <script type="text/javascript">
-                        $('#editarCliente').on('show.bs.modal', function(event) {
+                        $('#editarColaborador').on('show.bs.modal', function(event) {
                             var button = $(event.relatedTarget) // Botão que acionou o modal
                             var recipient = button.data('whatever')
                             var recipientnome = button.data('whatevernome')
@@ -913,7 +939,7 @@ if (isset($_SESSION['success'])) {
                             var recipientcomplemento = button.data('whatevercomplemento')
                             var recipientcep = button.data('whatevercep')
                             var recipientcidade = button.data('whatevercidade')
-                            var recipientuf = button.data('whateveruf')
+                            var recipientuf = button.data('whateverestado')
                             var recipienttelefone = button.data('whatevertelefone')
                             var recipientcelular = button.data('whatevercelular')
                             var recipientcpf = button.data('whatevercpf')
@@ -921,14 +947,26 @@ if (isset($_SESSION['success'])) {
                             var recipientnascimento = button.data('whatevernascimento')
                             var recipientoperador = button.data('whateveroperador')
                             var recipientsituacao = button.data('whateversituacao')
-                            var recipientdataCadastro = button.data('whateverdata-cadastro')
-                            var recipientalterado_por = button.data('whateveralterado_por')
+                            var recipientdataCadastro = button.data('whateverdata_cadastro')
+                            var recipientalterado_por = button.data('whatevercriado_por')
                             var recipientultima_alteracao = button.data('whateverultima_alteracao')
+                            var cpf = button.data('whatevercpf')
+                            var sexo = button.data('whateversexo')
+                            var nome_mae = button.data('whatevernome_mae')
+                            var org_emissor = button.data('whateverorg_emissor')
+                            var data_expedicao = button.data('whateverdata_expedicao')
+                            var registro = button.data('whateverregistro')
+                            var especialidade = button.data('whateverespecialidade')
+                            var banco = button.data('whateverbanco')
+                            var tipo_conta = button.data('whatevertipo_conta')
+                            var agencia = button.data('whateveragencia')
+                            var conta = button.data('whateverconta')
+                            var pix = button.data('whateverpix')
 
                             var modal = $(this)
                             modal.find('.modal-title').text('EDITAR CLIENTE CÓDIGO: ' + recipient)
                             modal.find('#id').val(recipient)
-                            modal.find('#recipient-name').val(recipientnome)
+                            modal.find('#recipient-nome').val(recipientnome)
                             modal.find('#recipient-email').val(recipientemail)
                             modal.find('#recipient-telefone').val(recipienttelefone)
                             modal.find('#recipient-rua').val(recipientrua)
@@ -946,8 +984,20 @@ if (isset($_SESSION['success'])) {
                             modal.find('#recipient-operador').val(recipientoperador)
                             modal.find('#recipient-situacao').val(recipientsituacao)
                             modal.find('#recipient-dataCadastro').val(recipientdataCadastro)
-                            modal.find('#recipient-alterado_por').val(recipientalterado_por)
+                            modal.find('#recipient-criado_por').val(recipientalterado_por)
                             modal.find('#recipientultima_alteracao').val(recipientultima_alteracao)
+                            modal.find('#recipient-cpf').val(cpf)
+                            modal.find('#recipient-sexo').val(sexo)
+                            modal.find('#recipient-nome_mae').val(nome_mae)
+                            modal.find('#recipient-org_emissor').val(org_emissor)
+                            modal.find('#recipient-data_expedicao').val(data_expedicao)
+                            modal.find('#recipient-registro').val(registro)
+                            modal.find('#recipient-especialidade').val(especialidade)
+                            modal.find('#recipient-banco').val(banco)
+                            modal.find('#recipient-tipo_conta').val(tipo_conta)
+                            modal.find('#recipient-agencia').val(agencia)
+                            modal.find('#recipient-conta').val(conta)
+                            modal.find('#recipient-pix').val(pix)
 
                         })
                     </script>
